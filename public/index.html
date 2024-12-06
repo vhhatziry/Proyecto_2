@@ -1,0 +1,103 @@
+<!--
+Escribir la gramática
+	-se despliega las T y V
+	-se asignan tokens
+Cargar AFD
+	*Probar analizador Léxico
+Crear tabla
+	*Analizador sintáctico SIGMA
+	*Tabla operaciones LL(1) SOBRE SIGMA
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Análisis LL(1)</title>
+  <link rel="stylesheet" href="build/css/app.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Análisis LL(1)</h1>
+    </div>
+    <div class="section_upload">
+      <div class="section_upload__cargar">
+        <label for="file">Cargar AFD:</label>
+        <input type="file" id="file">
+      </div>
+      <div class="section_upload__textarea">
+        <label>Grámatica:</label>
+        <textarea class="gramatica"></textarea>
+      </div>
+    </div>
+   <div class="section_informacion">
+    <div class="buttons">
+      <button>Crear tabla</button>
+
+    </div>
+       <div class="box">
+         <h3>No Terminales</h3>
+         <table>
+           <thead>
+             <tr>
+               <th>No Terminales</th>
+             </tr>
+           </thead>
+           <tbody id="no-terminales-body">
+             <!-- Rellenar dinámicamente -->
+           </tbody>
+         </table>
+       </div>
+       <div class="box">
+         <h3>Terminales</h3>
+         <table>
+           <thead>
+             <tr>
+               <th>Terminales</th>
+               <th>Tokens</th>
+             </tr>
+           </thead>
+           <tbody id="terminales-body">
+             <!-- Rellenar dinámicamente -->
+           </tbody>
+         </table>
+       </div>
+       <div class="box">
+         <h3>Tokens y Lexemas</h3>
+         <table>
+           <thead>
+             <tr>
+               <th>Token</th>
+               <th>Lexema</th>
+             </tr>
+           </thead>
+           <tbody id="tokens-lexemas-body">
+             <!-- Rellenar dinámicamente -->
+           </tbody>
+         </table>
+       </div>
+   </div>
+    <div class="section">
+      <button id="analyze">Analizar Sintácticamente</button>
+    </div>
+    <div class="box">
+      <h3>Tabla LL(1)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Pila</th>
+            <th>Cadena</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-ll1-body">
+          <!-- Rellenar dinámicamente -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

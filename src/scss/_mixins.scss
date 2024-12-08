@@ -1,0 +1,13 @@
+@use 'variables';
+
+@mixin generate-css-variables($map, $prefix) {
+    @each $shade, $value in $map {
+      --#{$prefix}-#{$shade}: #{$value};
+    }
+ }
+
+// variables.scss
+:root {
+  @include generate-css-variables($russian-violet, russian-violet);
+  @include generate-css-variables($tropical-indigo, tropical-indigo);
+}

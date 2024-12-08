@@ -15,89 +15,83 @@ Crear tabla
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Análisis LL(1)</title>
   <link rel="stylesheet" href="build/css/app.css">
-</head>
-<body>
-  <div class="container">
-    <div class="header">
-      <h1>Análisis LL(1)</h1>
-    </div>
-    <div class="section_upload">
-      <div class="section_upload__cargar">
-        <label for="file">Cargar AFD:</label>
-        <input type="file" id="file">
-      </div>
-      <div class="section_upload__textarea">
-        <label>Grámatica:</label>
-        <textarea class="gramatica"></textarea>
-      </div>
-    </div>
-   <div class="section_informacion">
-    <div class="buttons">
-      <button>Crear tabla</button>
+</head><body>
+  <header class="header">
+      <img src="icono.png" alt="Icono" class="header__icon">
+      <h1 class="header__tittle">Título Principal</h1>
+      <img src="icono.png" alt="Icono" class="header__icon">
+  </header>
 
+  <section class="grammar">
+      <div class="grammar__conticon">
+        <img src="icono.png" alt="Icono" class="grammar__icon">
+      </div>
+      <textarea name="grammar" class="grammar__text"></textarea>
+      <div class="grammar__contbutton">
+        <button class="grammar__button">
+          Cargar AFD
+        </button>
+      </div>
+  </section>
+
+  <section class="info">
+      <div class="info__container">
+          <h2 class="info__container__title">Símbolos no terminales</h2>
+          
+          <table class="info__container" id="noterm">
+
+          </table>
+      </div>
+
+      <div class="info__container">
+        <h2 class="info__container__title">Símbolos terminales</h2>
+        
+        <table class="info__container" id="term">
+          
+        </table>
     </div>
-       <div class="box">
-         <h3>No Terminales</h3>
-         <table>
-           <thead>
-             <tr>
-               <th>No Terminales</th>
-             </tr>
-           </thead>
-           <tbody id="no-terminales-body">
-             <!-- Rellenar dinámicamente -->
-           </tbody>
-         </table>
-       </div>
-       <div class="box">
-         <h3>Terminales</h3>
-         <table>
-           <thead>
-             <tr>
-               <th>Terminales</th>
-               <th>Tokens</th>
-             </tr>
-           </thead>
-           <tbody id="terminales-body">
-             <!-- Rellenar dinámicamente -->
-           </tbody>
-         </table>
-       </div>
-       <div class="box">
-         <h3>Tokens y Lexemas</h3>
-         <table>
-           <thead>
-             <tr>
-               <th>Token</th>
-               <th>Lexema</th>
-             </tr>
-           </thead>
-           <tbody id="tokens-lexemas-body">
-             <!-- Rellenar dinámicamente -->
-           </tbody>
-         </table>
-       </div>
-   </div>
-    <div class="section">
-      <button id="analyze">Analizar Sintácticamente</button>
-    </div>
-    <div class="box">
-      <h3>Tabla LL(1)</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Pila</th>
-            <th>Cadena</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody id="tabla-ll1-body">
-          <!-- Rellenar dinámicamente -->
-        </tbody>
-      </table>
-    </div>
+
+    <div class="info__container--actions">
+      <button class="info__button">
+        Asignar tokens
+      </button>
+      <button class="info__button">
+        Crear tabla LL(1)
+      </button>
+
+      <form class="info__sections">
+          
+          <input type="radio" id="analizlex" name="interfaz" value="lex">
+          <label for="analizlex">Analizador léxico</label>
+          
+          <input type="radio" id="analizsintact" name="interfaz" value="sintact">
+          <label for="analizsintact">Analizador Sintáctico</label>
+      </form>
+  </div>
+  </section>
+
+  <section class="table-results">
+      <h2 class="table-results__title">Resultados</h2>
+      <table class="table-results__table"></table>
+      <div class="table-results__expand">
+
+      </div>
+  </section>
+
+  <div class="test">
+    <textarea name="sigma" id="sigma" class="test__sigma"></textarea>
+    <button class="test__button" id="test">Analizar</button>
   </div>
 
-  <script src="script.js"></script>
+  <section class="result" id="lex">
+    <h2 class="result__title">Análisis Léxico</h2>
+    <table class="result__table"></table>
+  </section>
+
+  <section class="result" id="sintact">
+    <h2 class="result__title">Análisis Sintáctico</h2>
+    <table class="result__table"></table>
+  </section>
+<script src="script.js"></script>
 </body>
 </html>

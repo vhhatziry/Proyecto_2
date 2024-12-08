@@ -1,3 +1,62 @@
+/* Paleta de Colores */
+:root {
+  /* Russian Violet */
+  --russian-violet: #13072e; /* DEFAULT */
+  --russian-violet-100: #040109;
+  --russian-violet-200: #070312;
+  --russian-violet-300: #0b041b;
+  --russian-violet-400: #0e0523;
+  --russian-violet-500: #13072e;
+  --russian-violet-600: #32137c;
+  --russian-violet-700: #531ecc;
+  --russian-violet-800: #885fe7;
+  --russian-violet-900: #c4aff3;
+  /* Tropical Indigo */
+  --tropical-indigo: #bb99ff; /* DEFAULT */
+  --tropical-indigo-100: #1b0052;
+  --tropical-indigo-200: #3600a3;
+  --tropical-indigo-300: #5200f5;
+  --tropical-indigo-400: #8547ff;
+  --tropical-indigo-500: #bb99ff;
+  --tropical-indigo-600: #c9adff;
+  --tropical-indigo-700: #d6c2ff;
+  --tropical-indigo-800: #e4d6ff;
+  --tropical-indigo-900: #f1ebff;
+  /* Baby Powder */
+  --baby-powder: #fdfff7; /* DEFAULT */
+  --baby-powder-100: #fafef0;
+  --baby-powder-200: #f6fde0;
+  --baby-powder-300: #f1fbd0;
+  --baby-powder-400: #ecf9c0;
+  --baby-powder-500: #fdfff7;
+  --baby-powder-600: #f7fadb;
+  --baby-powder-700: #f2f6bf;
+  --baby-powder-800: #edf2a4;
+  --baby-powder-900: #e7ee88;
+  /* Mauve */
+  --mauve: #efa9fa; /* DEFAULT */
+  --mauve-100: #fce3ff;
+  --mauve-200: #f9c8ff;
+  --mauve-300: #f7adff;
+  --mauve-400: #f592ff;
+  --mauve-500: #efa9fa;
+  --mauve-600: #e681f3;
+  --mauve-700: #dd59ec;
+  --mauve-800: #d431e5;
+  --mauve-900: #cc09de;
+  /* Vista Blue */
+  --vista-blue: #99acff; /* DEFAULT */
+  --vista-blue-100: #e0e6ff;
+  --vista-blue-200: #c1cdff;
+  --vista-blue-300: #a2b5ff;
+  --vista-blue-400: #839cff;
+  --vista-blue-500: #99acff;
+  --vista-blue-600: #7088ff;
+  --vista-blue-700: #5169ff;
+  --vista-blue-800: #334aff;
+  --vista-blue-900: #142bff;
+}
+
 html {
   font-size: 62.5%;
   box-sizing: border-box;
@@ -14,5 +73,6 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: rgba(0, 0, 0, 0.699);
+  background-color: var(--russian-violet);
+  color: var(--tropical-indigo-500);
 }/*# sourceMappingURL=app.css.map */

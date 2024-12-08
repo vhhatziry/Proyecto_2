@@ -21,8 +21,19 @@ body {
     color: $tropical-indigo-500; 
 }    
 
-.header{
+.header, .grammar, .info, .table-results{
+    display: flex;
+}
 
+.header{
+    margin: 20px 0;
+    align-items: center ;
+    justify-content: center;
+    span{
+        //comentario
+        font-size: 4rem;    
+        @extend .poppins-black-italic;
+    }
 }
 
 .grammar{

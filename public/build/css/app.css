@@ -23,7 +23,7 @@ html {
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Poppins", sans-serif;
   margin: 0;
   padding: 0;
   background-color: #13072e;
@@ -57,4 +57,33 @@ body {
 }
 .header__icon {
   width: 12rem;
+}
+
+.grammar {
+  align-items: center;
+  justify-content: center;
+}
+.grammar__conticon {
+  display: flex;
+  flex: 0 0 256px;
+}
+.grammar__icon {
+  width: 12rem;
+}
+.grammar__text {
+  font-size: 2rem;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-family: "Poppins", sans-serif;
+  font-style: italic;
+  flex: 0 0 640px;
+  color: #e4d6ff;
+}
+.grammar__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+  flex: 0 0 384px;
 }/*# sourceMappingURL=app.css.map */

@@ -14,7 +14,7 @@ html {
 }
 
 body {
-    font-family: Arial, sans-serif;
+    @include fuentePoppins;
     margin: 0;
     padding: 0;
     background-color: $russian-violet;
@@ -48,6 +48,29 @@ body {
 }
 
 .grammar{
+    align-items: center ;
+    justify-content: center;
+    &__conticon{ 
+        display: flex; 
+        flex: 0 0 256px;
+    }
+    &__icon{
+        width: 12rem;
+    }
+    &__text{
+        font-size: 2rem;
+        text-align: center;    
+        @include poppins-black-italic;
+        flex: 0 0 640px; 
+        color: $tropical-indigo-800; 
+    }
+    &__button{ 
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+        margin: 2rem 0;
+        flex: 0 0 384px;
+    }
 
 }
 

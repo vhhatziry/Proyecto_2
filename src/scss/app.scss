@@ -29,10 +29,10 @@ body {
     margin: 20px 0;
     align-items: center ;
     justify-content: center;
-    span{
+    &__tittle{ //Corregí esto
         //comentario
         font-size: 4rem;    
-        @extend .poppins-black-italic;
+        @include poppins-black-italic;
     }
 }
 

@@ -17,7 +17,11 @@ Crear tabla
   <link rel="stylesheet" href="build/css/app.css">
 </head><body>
   <header class="header">
-      <img src="compu.png" alt="Icono" class="header__icon">
+      <picture>
+        <source srcset="build/img/compu.avif" type="image/avif">
+        <source srcset="build/img/compu.webp" type="image/webp">
+        <img src="build/img/compu.png" alt="Icono" class="header__icon">
+      </picture>
       <span class="header__tittle">Analizador LL(1)</span>
       <img src="icono.png" alt="Icono" class="header__icon">
   </header>

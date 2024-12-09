@@ -55,7 +55,7 @@ body {
     max-width: 120rem;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 2rem; 
     width: 120rem;
     margin: 10rem 0;
@@ -74,13 +74,23 @@ body {
         color: $tropical-indigo-800; 
         width: 70rem;
         height: 12rem;
+        resize: none;
     }
   
     &__contbutton { 
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 2rem 0; 
+        margin: 2rem 0;
+    }
+    &__button{
+        @include fuentePoppins;
+        font-size: 2rem;
+        border-radius: 4rem;
+        padding: 1.5rem 3rem;
+        border: none;
+        text-decoration: none;
+        cursor: pointer;
     }
   }
 

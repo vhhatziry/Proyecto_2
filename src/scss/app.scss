@@ -26,6 +26,8 @@ body {
 
 .header{
     margin: 2rem auto;
+    width: 100%;
+    max-width: 120rem;
     align-items: center ;
     justify-content: center;
     &__title{ 
@@ -48,6 +50,9 @@ body {
 }
 
 .grammar {
+    margin: 2rem auto;
+    width: 100%;
+    max-width: 120rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -80,11 +85,30 @@ body {
   }
 
 .info{
+    margin: 2rem auto;
+    width: 100%;
+    max-width: 120rem;
     display: flex;
 
 }
 
 .table-results{
+    margin: 2rem auto;
+    width: 100%;
+    max-width: 120rem;
     display: flex;
+}
 
+.test{
+    margin: 2rem auto;
+    width: 100%;
+    max-width: 120rem;
+    display: flex;
+}
+
+.result{
+    margin: 2rem auto;
+    width: 100%;
+    max-width: 120rem;
+    display: flex;
 }

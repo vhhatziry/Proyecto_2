@@ -29,12 +29,12 @@ body {
   background-color: #13072e;
 }
 
-.header, .grammar, .info, .table-results {
+.body, .header, .grammar, .info, .table-results {
   display: flex;
 }
 
 .header {
-  margin: 20px 0;
+  margin: 2rem auto;
   align-items: center;
   justify-content: center;
 }
@@ -45,30 +45,33 @@ body {
   font-weight: 900;
   font-family: "Poppins", sans-serif;
   font-style: italic;
-  margin: 0;
-  flex: 0 0 60%;
+  margin: 0 2rem;
+  width: 60rem;
   color: #e4d6ff;
 }
 .header__img {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 0 0 20%;
+  width: 20rem;
 }
 .header__icon {
   width: 12rem;
 }
 
 .grammar {
+  display: flex;
   align-items: center;
   justify-content: center;
+  gap: 2rem;
+  width: 120rem;
+  margin: 10rem 0;
 }
 .grammar__conticon {
   display: flex;
-  flex: 0 0 256px;
 }
 .grammar__icon {
-  width: 12rem;
+  width: 14rem;
 }
 .grammar__text {
   font-size: 2rem;
@@ -77,13 +80,21 @@ body {
   font-weight: 900;
   font-family: "Poppins", sans-serif;
   font-style: italic;
-  flex: 0 0 640px;
   color: #e4d6ff;
+  width: 70rem;
+  height: 12rem;
 }
-.grammar__button {
+.grammar__contbutton {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   margin: 2rem 0;
-  flex: 0 0 384px;
+}
+
+.info {
+  display: flex;
+}
+
+.table-results {
+  display: flex;
 }/*# sourceMappingURL=app.css.map */

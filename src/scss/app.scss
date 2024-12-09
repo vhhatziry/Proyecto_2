@@ -20,64 +20,71 @@ body {
     background-color: $russian-violet;
 }    
 
-.header, .grammar, .info, .table-results{
+.body, .header, .grammar, .info, .table-results{
     display: flex;
 }
 
 .header{
-    margin: 20px 0;
+    margin: 2rem auto;
     align-items: center ;
     justify-content: center;
     &__title{ 
         font-size: 5rem;
         text-align: center;    
         @include poppins-black-italic;
-        margin: 0; 
-        flex: 0 0 60%; 
+        margin: 0 2rem; 
+        width: 60rem; 
         color: $tropical-indigo-800; 
     }
     &__img{
         display: flex; 
         justify-content: center;
         align-items: center;
-        flex: 0 0 20%;
+        width: 20rem;
     }
     &__icon{
         width: 12rem;
     }
 }
 
-.grammar{
-    align-items: center ;
+.grammar {
+    display: flex;
+    align-items: center;
     justify-content: center;
-    &__conticon{ 
-        display: flex; 
-        flex: 0 0 256px;
+    gap: 2rem; 
+    width: 120rem;
+    margin: 10rem 0;
+    &__conticon { 
+      display: flex; 
     }
-    &__icon{
-        width: 12rem;
+  
+    &__icon {
+        width: 14rem;
     }
-    &__text{
+  
+    &__text {
         font-size: 2rem;
-        text-align: center;    
+        text-align: center;
         @include poppins-black-italic;
-        flex: 0 0 640px; 
         color: $tropical-indigo-800; 
+        width: 70rem;
+        height: 12rem;
     }
-    &__button{ 
-        display: flex; 
-        justify-content: center;
+  
+    &__contbutton { 
+        display: flex;
         align-items: center;
-        margin: 2rem 0;
-        flex: 0 0 384px;
+        justify-content: center;
+        margin: 2rem 0; 
     }
-
-}
+  }
 
 .info{
+    display: flex;
 
 }
 
 .table-results{
+    display: flex;
 
 }

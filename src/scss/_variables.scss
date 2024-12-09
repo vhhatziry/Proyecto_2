@@ -1,10 +1,9 @@
 // Aquí se definen las variables, como tipo de fuente, paleta de colores
 // tamaño de fuente, etc.
-
+@use 'sass:color'; 
 /* Paleta de Colores */
 
 /* Russian Violet */
-$rojo: red;
 $russian-violet: #13072e; /* DEFAULT */
 $russian-violet-100: #040109;
 $russian-violet-200: #070312;
@@ -64,6 +63,9 @@ $vista-blue-700: #5169ff;
 $vista-blue-800: #334aff;
 $vista-blue-900: #142bff;
 
+$indigo-trans: color.adjust($tropical-indigo-900, $alpha: 0.5, $lightness: -20%);
+$russian-trans: color.adjust($russian-violet-600, $alpha: 0.5, $lightness: -20%);
+$button: #b3aaff;
 //Fuente para titulo
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 

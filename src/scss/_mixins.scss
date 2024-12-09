@@ -1,0 +1,98 @@
+@mixin fuentePoppins(){
+    font-family: 'Poppins', sans-serif;
+}
+
+@mixin poppins-thin(){
+    @include fuentePoppins();
+    font-weight: 100;
+}
+
+@mixin poppins-extralight(){
+    @include fuentePoppins();
+    font-weight: 200;
+}
+
+@mixin poppins-light(){
+    @include fuentePoppins();
+    font-weight: 300;
+}
+
+@mixin poppins-regular(){
+    @include fuentePoppins();
+    font-weight: 400;
+}
+
+@mixin poppins-medium(){
+    @include fuentePoppins();
+    font-weight: 500;
+}
+
+@mixin poppins-semibold(){
+    @include fuentePoppins();
+    font-weight: 600;
+}
+
+@mixin poppins-bold(){
+    @include fuentePoppins();
+    font-weight: 700;
+}
+
+@mixin poppins-extrabold(){
+    @include fuentePoppins();
+    font-weight: 800;
+}
+
+@mixin poppins-black(){
+    @include fuentePoppins();
+    font-weight: 900;
+}
+
+@mixin poppins-italic(){
+    @include fuentePoppins();
+    font-style: italic;
+}
+
+@mixin poppins-thin-italic(){
+    @include poppins-thin();
+    @include poppins-italic();
+}
+
+@mixin poppins-extralight-italic(){
+    @include poppins-extralight();
+    @include poppins-italic();
+}
+
+@mixin poppins-light-italic(){
+    @include poppins-light();
+    @include poppins-italic();
+}
+
+@mixin poppins-regular-italic(){
+    @include poppins-regular();
+    @include poppins-italic();
+}
+
+@mixin poppins-medium-italic(){
+    @include poppins-medium();
+    @include poppins-italic();
+}
+
+@mixin poppins-semibold-italic(){
+    @include poppins-semibold();
+    @include poppins-italic();
+}
+
+@mixin poppins-bold-italic(){
+    @include poppins-bold();
+    @include poppins-italic();
+}
+
+@mixin poppins-extrabold-italic(){
+    @include poppins-extrabold();
+    @include poppins-italic();
+}
+
+@mixin poppins-black-italic(){
+    @include poppins-black();
+    @include poppins-italic();
+}

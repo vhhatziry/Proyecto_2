@@ -27,7 +27,6 @@ body {
   margin: 0;
   padding: 0;
   background-color: #13072e;
-  color: #bb99ff;
 }
 
 .header, .grammar, .info, .table-results {
@@ -39,10 +38,23 @@ body {
   align-items: center;
   justify-content: center;
 }
-.header__tittle {
-  font-size: 4rem;
+.header__title {
+  font-size: 5rem;
+  text-align: center;
   font-family: "Poppins", sans-serif;
   font-weight: 900;
   font-family: "Poppins", sans-serif;
   font-style: italic;
+  margin: 0;
+  flex: 0 0 60%;
+  color: #e4d6ff;
+}
+.header__img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 20%;
+}
+.header__icon {
+  width: 12rem;
 }/*# sourceMappingURL=app.css.map */

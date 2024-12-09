@@ -116,36 +116,87 @@ body {
   display: flex;
   gap: 2rem;
 }
-.info__container {
+.info__container, .info__container--actions {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   margin: 2rem 0;
   padding: 1rem 1rem;
   border-radius: 1rem;
-  height: 10rem;
+  width: 100%;
+  max-width: 45.5rem;
+  height: 30rem;
   background: linear-gradient(135deg, rgb(14.3356643357, 5.4475524476, 35.5524475524) 10%, #3f2182 90%);
 }
 .info__container__title {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #b3aaff;
+  background-color: #cac5fc;
   color: #13072e;
   padding: 1.5rem;
   border-radius: 4rem;
   font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+.info__container__table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.info__container__table td {
+  border: 4px transparent rgb(9.3, 0, 31);
+  width: 100px;
+  height: 50px;
+  border-radius: 0.3rem;
+}
+.info__container__table tr:nth-child(1) td {
+  background: #c9adff;
+}
+.info__container__table tr:nth-child(2) td, .info__container__table tr:nth-child(4) td {
+  background: #fafef0;
+}
+.info__container__table tr:nth-child(3) td {
+  background: #f9c8ff;
+}
+.info__container--actions {
+  width: 24rem;
+  background: none;
+  gap: 1rem;
 }
 .info__button {
   font-family: "Poppins", sans-serif;
-  background-color: #edf2a4;
+  font-weight: 200;
+  font-family: "Poppins", sans-serif;
+  font-style: italic;
+  display: block;
+  background-color: #f2f6bf;
   font-size: 1.5rem;
   border-radius: 1.3rem;
-  padding: 1rem 2rem;
+  padding: 1rem 1.5rem;
   border: none;
+  width: 100%;
+  max-width: 20rem;
   text-decoration: none;
   cursor: pointer;
+}
+.info__sections {
+  width: 20rem;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+.info__sections__select {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  color: #c9adff;
+  transition: color 0.3s ease;
+  font-size: 1.8rem;
+}
+.info__sections__select:hover {
+  color: #334aff;
 }
 
 .table-results {

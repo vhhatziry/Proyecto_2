@@ -36,7 +36,7 @@ body {
         text-align: center;    
         margin: 0 2rem; 
         width: 60rem; 
-        color: $tropical-indigo-800; 
+        color: $tropical-indigo-800;    
     }
     &__img{
         display: flex; 
@@ -103,36 +103,90 @@ body {
     max-width: 120rem;
     display: flex;
     gap: 2rem;
-    &__container{
+    &__container {
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         text-align: center;
         margin: 2rem 0;
         padding: 1rem 1rem;
         border-radius: 1rem;
-        height: 10rem;
-        background: linear-gradient(135deg, $russian-trans 10%, #3f2182 90%);      
-        &__title{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: $button;
-            color: $russian-violet  ;
-            padding: 1.5rem; 
-            border-radius: 4rem;
-            font-size: 1.4rem;
+        width: 100%;
+        max-width: 45.5rem;
+        height: 30rem;
+        background: linear-gradient(135deg, $russian-trans 10%, #3f2182 90%);
+      
+        &__title {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: $button;
+          color: $russian-violet;
+          padding: 1.5rem;
+          border-radius: 4rem;
+          font-size: 1.4rem;
+          margin-bottom: 1rem;
         }
-    }
+      
+        &__table {
+          display: flex;
+          flex-direction: column; 
+          align-items: center; 
+          td {
+            border: 4px transparent $trans;
+            width: 100px;
+            height: 50px;
+            border-radius: 0.3rem;
+          }
+      
+          tr:nth-child(1) td {
+            background:  $tropical-indigo-600;
+          }
+          tr:nth-child(2) td , tr:nth-child(4) td{
+            background:  $baby-powder-100;
+          }
+      
+          tr:nth-child(3) td {
+            background: $mauve-200;
+          }
+        }
+        &--actions{
+            @extend .info__container;
+            width: 24rem;
+            background: none;
+            gap: 1rem;
+        }
+      }
     &__button{
-        @include fuentePoppins;
-        background-color: $baby-powder-800;
+        @include poppins-extralight-italic;
+        display: block;
+        background-color: $baby-powder-700;
         font-size: 1.5rem;
         border-radius: 1.3rem;
-        padding: 1rem 2rem;
+        padding: 1rem 1.5rem;
         border: none;
+        width: 100%;
+        max-width: 20rem;
         text-decoration: none;
         cursor: pointer;
+    }
+
+    &__sections{
+        width: 20rem;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+
+        &__select{
+            @include poppins-black;
+            color: $tropical-indigo-600;
+            transition: color 0.3s ease;
+            font-size: 1.8rem;
+            &:hover{
+                color: $vista-blue-800;
+            }
+        }
     }
 }
 
@@ -142,6 +196,7 @@ body {
     max-width: 120rem;
     display: flex;
 }
+
 
 .test{
     margin: 2rem auto;

@@ -73,9 +73,11 @@ body {
 }
 .grammar__conticon {
   display: flex;
+  padding-top: 0.8rem;
 }
 .grammar__icon {
-  width: 19rem;
+  display: block;
+  width: 16rem;
 }
 .grammar__text {
   font-family: "Poppins", sans-serif;
@@ -110,7 +112,7 @@ body {
 }
 
 .info {
-  margin: 3% auto;
+  margin: 2rem auto;
   width: 100%;
   max-width: 120rem;
   display: flex;

@@ -75,7 +75,7 @@ body {
   display: flex;
 }
 .grammar__icon {
-  width: 14rem;
+  width: 19rem;
 }
 .grammar__text {
   font-family: "Poppins", sans-serif;
@@ -90,14 +90,14 @@ body {
   background-color: rgb(169.6, 133, 255);
   box-shadow: 0 0 1.5rem #cc09de, 0 0 1rem #efa9fa;
   font-size: 2rem;
-  text-align: center;
+  text-align: left;
   color: #e4d6ff;
 }
 .grammar__contbutton {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2rem 0;
+  margin: 2rem auto;
 }
 .grammar__button {
   font-family: "Poppins", sans-serif;
@@ -191,12 +191,25 @@ body {
 .info__sections__select {
   font-family: "Poppins", sans-serif;
   font-weight: 900;
+  display: flex;
   color: #c9adff;
   transition: color 0.3s ease;
   font-size: 1.8rem;
+  gap: 2rem;
 }
 .info__sections__select:hover {
   color: #334aff;
+}
+.info__sections__select input[type=radio] {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid #e0e6ff;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.info__sections__select input[type=radio]:checked {
+  background-color: #334aff;
+  border-color: #334aff;
 }
 
 .table-results {

@@ -63,7 +63,7 @@ body {
     }
   
     &__icon {
-        width: 14rem;
+        width: 19rem;
     }
   
     &__text {
@@ -76,7 +76,7 @@ body {
         background-color: $indigo-trans; 
         box-shadow: 0 0 1.5rem $mauve-900, 0 0 1rem $mauve;
         font-size: 2rem;
-        text-align: center;
+        text-align: left;
         color: $tropical-indigo-800; 
     }
   
@@ -84,7 +84,7 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 2rem 0;
+        margin: 2rem auto;
     }
     &__button{
         @include fuentePoppins;
@@ -180,11 +180,28 @@ body {
 
         &__select{
             @include poppins-black;
+            display: flex;
             color: $tropical-indigo-600;
             transition: color 0.3s ease;
             font-size: 1.8rem;
+            gap: 2rem;
+            
             &:hover{
                 color: $vista-blue-800;
+            }
+
+            input[type="radio"] {
+                width: 2rem;
+                height: 2rem;
+                border: 2px solid $vista-blue-100;
+                border-radius: 50%;
+                margin-right: 10px; 
+              
+                &:checked {
+                  background-color: $vista-blue-800;
+                  border-color: $vista-blue-800;
+                }
+              
             }
         }
     }

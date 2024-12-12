@@ -112,7 +112,7 @@ body {
 }
 
 .info {
-  margin: 2rem auto;
+  margin: 1rem auto;
   width: 100%;
   max-width: 120rem;
   display: flex;
@@ -124,7 +124,6 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin: 2rem 0;
   padding: 1rem 1rem;
   border-radius: 1rem;
   width: 100%;
@@ -219,6 +218,13 @@ body {
   width: 100%;
   max-width: 120rem;
   display: flex;
+}
+.table-results__title {
+  display: block;
+  align-items: center;
+  justify-content: center;
+  color: #a2b5ff;
+  font-size: 2rem;
 }
 
 .test {
@@ -317,4 +323,11 @@ body {
   width: 100%;
   max-width: 120rem;
   display: flex;
+}
+.result__title {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-family: "Poppins", sans-serif;
+  font-style: italic;
+  color: #f9c8ff;
 }/*# sourceMappingURL=app.css.map */

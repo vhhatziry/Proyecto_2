@@ -100,7 +100,7 @@ body {
   }
 
 .info{
-    margin: 2rem auto;
+    margin: 1rem auto;
     width: 100%;
     max-width: 120rem;
     display: flex;
@@ -111,7 +111,6 @@ body {
         align-items: center;
         justify-content: center;
         text-align: center;
-        margin: 2rem 0;
         padding: 1rem 1rem;
         border-radius: 1rem;
         width: 100%;
@@ -214,6 +213,13 @@ body {
     width: 100%;
     max-width: 120rem;
     display: flex;
+    &__title{
+        display: block;
+        align-items: center;
+        justify-content: center;   
+        color: $vista-blue-300;
+        font-size: 2rem;
+    }
 }
 
 
@@ -321,7 +327,10 @@ body {
     width: 100%;
     max-width: 120rem;
     display: flex;
-
+    &__title{
+        @include poppins-light-italic;
+        color: $mauve-200;
+    }
     &__table{
         @extend .info__container__table;
     }

@@ -188,6 +188,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: start;
+  padding-left: 7rem;
 }
 .info__sections__select {
   font-family: "Poppins", sans-serif;
@@ -325,8 +326,9 @@ body {
   display: flex;
 }
 .result__title {
+  font-size: 2rem;
   font-family: "Poppins", sans-serif;
-  font-weight: 300;
+  font-weight: 600;
   font-family: "Poppins", sans-serif;
   font-style: italic;
   color: #f9c8ff;

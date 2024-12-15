@@ -96,7 +96,7 @@ body {
   width: 16rem;
 }
 .grammar__text {
-  width: 70rem;
+  width: 75rem;
   height: 12rem;
   resize: none;
   border-top: 1rem;
@@ -110,6 +110,8 @@ body {
 }
 .grammar__text::placeholder {
   color: #8547ff;
+  text-align: center;
+  padding: 2.5rem 15rem;
 }
 .grammar__contbutton {
   display: flex;

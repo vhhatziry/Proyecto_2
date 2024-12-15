@@ -1,19 +1,9 @@
-<!--
-Escribir la gramática
-	-se despliega las T y V
-	-se asignan tokens
-Cargar AFD
-	*Probar analizador Léxico
-Crear tabla
-	*Analizador sintáctico SIGMA
-	*Tabla operaciones LL(1) SOBRE SIGMA
--->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Análisis LL(1)</title>
+  <title>Analizador LL(1)</title>
   <link rel="stylesheet" href="build/css/app.css">
 </head>
 <body>
@@ -39,11 +29,11 @@ Crear tabla
           <img src="gramatica.png" alt="Icono" class="grammar__icon">
         </picture>
       </div>
-      <textarea name="grammar" class="grammar__text"></textarea>
+      <textarea name="grammar" class="grammar__text" id="grammarText"></textarea>
       <div class="grammar__contbutton">
-        <button class="grammar__button">
-          Cargar AFD
-        </button>
+        <!-- Agregamos un input file y un botón para cargar la matriz -->
+        <input type="file" id="matrizInput" accept=".txt" style="display:none;" />
+        <button class="grammar__button" id="cargarAFD">Cargar AFD</button>
       </div>
   </section>
 
@@ -52,21 +42,6 @@ Crear tabla
           <h2 class="info__container__title">Símbolos no terminales</h2>
           
           <table class="info__container__table" id="noterm">
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
               <tr>
                 <td></td>
                 <td></td>
@@ -82,34 +57,15 @@ Crear tabla
           <tr>
             <td></td>
             <td></td>
-            
             <td></td>
           </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>   
         </table>
     </div>
 
-    <div class="info__container--actions">
-      <button class="info__button">
-        Asignar tokens
-      </button>
-      <button class="info__button">
-        Crear tabla LL(1)
-      </button>
+    
+    <section class="info__container--actions">
+      <button class="info__button" id="asignarTokens">Asignar tokens</button>
+      <button class="info__button" id="crearTablaLL1">Crear tabla LL(1)</button>
 
       <form class="info__sections">
           <div class="info__sections__select">
@@ -121,47 +77,41 @@ Crear tabla
             <label for="analizsintact">Analisis Sintáctico</label>
           </div>
       </form>
-  </div>
+    </section>
   </section>
+
+  <section class="table-results">
+    <h2 class="table-results__title">Tabla de análisis LL1</h2>
+    <table class="table-results__table">
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+    <div class="table-results__expand">
+    </div>
+</section>
 
   <div class="test">
     <label class="test__label" for="sigma">Sigma:</label>
     <div class="test__sigma-container">
       <textarea name="sigma" id="sigma" class="test__sigma"></textarea>
     </div>
-    <button class="test__button" id="test">Analizar</button>    
+    <button class="test__button" id="testLex">Analizar Léxicamente</button>    
   </div>
-  
-  
-  <section class="table-results">
-      <h2 class="table-results__title">Resultados</h2>
-      <table class="table-results__table">
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr> 
-      </table>
-      <div class="table-results__expand">
-
-      </div>
-  </section>
-
 
   <section class="result" id="lex">
     <h2 class="result__title">Análisis Léxico</h2>
-    <table class="result__table"></table>
+    <table class="result__table" id="lexResults"></table>
   </section>
 
   <section class="result" id="sintact">
     <h2 class="result__title">Análisis Sintáctico</h2>
     <table class="result__table"></table>
   </section>
-<script src="build/js/app.js"></script>
+
+<script src="build/js/app.js" type="module"></script>
+
 </body>
 </html>

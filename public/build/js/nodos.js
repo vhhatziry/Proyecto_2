@@ -1,0 +1,1 @@
+class Nodo{constructor(s,o=!1){this.NombSimb=s,this.EsTerminal=o}}class ElemArreglo{constructor(){this.NombSimb="",this.Lista=[],this.EsTerminal=!1}}export{Nodo,ElemArreglo};

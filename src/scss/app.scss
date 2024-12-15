@@ -69,7 +69,6 @@ body {
     }
   
     &__text {
-        @include poppins-black-italic;
         width: 70rem;
         height: 12rem;
         resize: none;
@@ -141,15 +140,17 @@ body {
             border-radius: 0.3rem;
           }
       
-          tr:nth-child(1) td {
-            background:  $tropical-indigo-600;
-          }
-          tr:nth-child(2) td , tr:nth-child(4) td{
+          
+          tr:nth-child(even) td , tr:nth-child(4) td{
             background:  $baby-powder-100;
           }
       
-          tr:nth-child(3) td {
+          tr:nth-child(odd) td {
             background: $mauve-200;
+          }
+
+          tr:first-child td {
+            background:  $tropical-indigo-600;
           }
         }
         &--actions{

@@ -80,10 +80,6 @@ body {
   width: 16rem;
 }
 .grammar__text {
-  font-family: "Poppins", sans-serif;
-  font-weight: 900;
-  font-family: "Poppins", sans-serif;
-  font-style: italic;
   width: 70rem;
   height: 12rem;
   resize: none;
@@ -153,14 +149,14 @@ body {
   height: 50px;
   border-radius: 0.3rem;
 }
-.info__container__table tr:nth-child(1) td, .result__table tr:nth-child(1) td {
-  background: #c9adff;
-}
-.info__container__table tr:nth-child(2) td, .result__table tr:nth-child(2) td, .info__container__table tr:nth-child(4) td, .result__table tr:nth-child(4) td {
+.info__container__table tr:nth-child(even) td, .result__table tr:nth-child(even) td, .info__container__table tr:nth-child(4) td, .result__table tr:nth-child(4) td {
   background: #fafef0;
 }
-.info__container__table tr:nth-child(3) td, .result__table tr:nth-child(3) td {
+.info__container__table tr:nth-child(odd) td, .result__table tr:nth-child(odd) td {
   background: #f9c8ff;
+}
+.info__container__table tr:first-child td, .result__table tr:first-child td {
+  background: #c9adff;
 }
 .info__container--actions {
   width: 100%;

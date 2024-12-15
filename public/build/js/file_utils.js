@@ -1,0 +1,1 @@
+function leerArchivo(e){return new Promise(((r,o)=>{const n=new FileReader;n.onload=()=>r(n.result),n.onerror=o,n.readAsText(e)}))}export{leerArchivo};

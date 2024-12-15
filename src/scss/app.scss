@@ -2,9 +2,14 @@
 @use 'mixins' as *;
 
 html {
+    @include fuentePoppins;
     font-size: 62.5%;
     box-sizing: border-box;
     scroll-padding-top: 0rem;
+}
+
+* {
+    @include custom-scrollbar;
 }
 
 *, *::before, *::after {
@@ -14,7 +19,6 @@ html {
 }
 
 body {
-    @include fuentePoppins;
     margin: 0;
     padding: 0;
     background-color: $russian-violet;
@@ -69,7 +73,6 @@ body {
     }
   
     &__text {
-        @include custom-scrollbar;
         width: 70rem;
         height: 12rem;
         resize: none;
@@ -107,11 +110,9 @@ body {
     display: flex;
     gap: 2rem;
     &__container {
-        @include custom-scrollbar;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
         overflow: auto;
         text-align: center;
         padding: 1rem 1rem;
@@ -131,6 +132,8 @@ body {
           border-radius: 4rem;
           font-size: 1.4rem;
           margin-bottom: 1rem;
+          position: sticky;
+          top: 0 ;
         }
       
         &__table {
@@ -159,6 +162,7 @@ body {
         }
         &--actions{
             @extend .info__container;
+            justify-content: center;
             width: 100%;
             background: none;
             gap: 1rem;
@@ -217,43 +221,55 @@ body {
     margin: 2rem auto;
     width: 100%;
     max-width: 120rem;
-    display: flex;
-  
+    display: flex;  
+    flex-direction: column;
+    background-color: $russian-trans;
+    padding: 1rem;
     &__title {
-      display: block;
+      display: flex;
       align-items: center;
       justify-content: center;
       color: $vista-blue-300;
-      font-size: 2rem;
+      font-size: 2.2rem;
     }
-  
-    &__table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 2rem 0;
-      overflow: auto;
-      max-height: 40rem;
-      display: block; // Para permitir scroll interno
-      background-color: $baby-powder-500; // Fondo muy claro
-      border: 0.1rem solid rgba(0, 0, 0, 0.05);
-  
-    /*  table {
-        width: 100%;
-      }   es necesaria?*/ 
-  
-      tr {
-        text-align: center;
-      }
-  
-      td {
-        padding: 0.8rem;
-        border: 0.1rem solid rgba(0, 0, 0, 0.1);
-        font-size: 1.6rem;
-        color: $russian-violet-500; // texto oscuro suave
-        overflow-wrap: break-word;
-        max-width: 10rem;
-        vertical-align: middle;
-      }
+        &__table {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        border-collapse: collapse;
+        margin: 2rem 0;
+        overflow: auto;
+        max-height: 40rem;
+        width: auto;
+        background-color: $russian-trans;
+        border: 0.1rem solid rgba(0, 0, 0, 0.05);
+    
+        tr {
+            text-align: center;
+        }
+    
+        td {
+            padding: 0.8rem;
+            border: 0.1rem solid rgba(0, 0, 0, 0.1);
+            font-size: 1.6rem;
+            color: $russian-violet-500; 
+            overflow-wrap: break-word;
+            max-width: 10rem;
+            vertical-align: middle;
+            @include poppins-medium;
+        }
+
+        tr:nth-child(even) td , tr:nth-child(4) td{
+            background:  $mauve-200;
+          }
+      
+          tr:nth-child(odd) td {
+            background: $mauve-500;
+          }
+
+          tr:first-child td {
+            background:  $tropical-indigo-400;
+          }
     }
   }
   
@@ -383,7 +399,7 @@ body {
     }
   
     &__sigma {
-        @include poppins-black-italic;
+        @include poppins-semibold-italic;
         background-color: $tropical-indigo-200; 
         border: none;
         width: 100%;
@@ -432,13 +448,19 @@ body {
     margin: 2rem auto;
     width: 100%;
     max-width: 120rem;
+    max-height: 50rem;
     display: flex;
+    flex-direction: column;
+    overflow-y: auto;
     &__title{
-        font-size: 2rem;
+        font-size: 2.2rem;
         @include poppins-semibold-italic;
         color: $mauve-200;
     }
     &__table{
         @extend .info__container__table;
+        td{
+            @include poppins-light;
+        }
     }
 }

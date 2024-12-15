@@ -16,6 +16,12 @@ const appState = {
     ll1Table: null
 };
 
+document.querySelectorAll('.info__sections__select input').forEach(input => {
+    input.addEventListener('click', () => {
+      document.querySelector('.result').scrollIntoView({ behavior: 'smooth' });
+    });
+  });  
+
 document.addEventListener('DOMContentLoaded', async () => {
     const matrizInput = document.getElementById('matrizInput');
     const cargarAFDButton = document.getElementById('cargarAFD');
@@ -58,7 +64,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     cargarAFDButton.addEventListener('click', () => {
-        matrizInput.click();
+        matrizInput.click(); 
+    
+        // Esperar a que el archivo se seleccione
+        matrizInput.addEventListener('change', () => {
+            // Aquí el archivo ya se ha cargado
+            alert("AFD Cargado");
+        });
     });
 
     matrizInput.addEventListener('change', async (event) => {
@@ -162,6 +174,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         for (let [sym, tok] of Object.entries(appState.currentGrammar.TerminalesTokens)) {
             console.log(sym, "->", tok);
         }
+        alert("Tokens asignados");
+        
     });
 
     crearTablaLL1Btn.addEventListener('click', () => {
@@ -187,7 +201,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log("Tabla LL1 generada:");
         console.log(appState.ll1Table);
         mostrarTablaLL1EnInterfaz(appState.ll1Table);
-        alert("Tabla LL1 generada con éxito. Revisa la sección de resultados para verla.");
+        alert("Tabla LL1 generada con éxito. Revisa la sección de resultados para verla.Y despues seleccione una forma de análisis.");
+        document.querySelector('.table-results').scrollIntoView({ behavior: 'smooth' });
     });
 });
 

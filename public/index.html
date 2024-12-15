@@ -29,7 +29,7 @@
           <img src="gramatica.png" alt="Icono" class="grammar__icon">
         </picture>
       </div>
-     <textarea name="grammar" class="grammar__text" id="grammarText" placeholder="Introduzca la grámatica en orden y colocando signos de mayor y menor que."></textarea>
+     <textarea name="grammar" class="grammar__text" id="grammarText" spellcheck="false" placeholder="Introduzca la grámatica en orden y colocando signos de mayor y menor que."></textarea>
      <div class="grammar__contbutton">
         <!-- Agregamos un input file y un botón para cargar la matriz -->
         <input type="file" id="matrizInput" accept=".txt" style="display:none;" />
@@ -67,16 +67,16 @@
       <button class="info__button" id="asignarTokens">Asignar tokens</button>
       <button class="info__button" id="crearTablaLL1">Crear tabla LL(1)</button>
 
-      <form class="info__sections">
-        <div class="info__sections__select">
-            <input type="radio" id="analizlex" name="interfaz" value="lex">
-            <label for="analizlex" onclick="location.href='#table-results';">Análisis léxico</label>
-        </div>
-        <div class="info__sections__select">
-            <input type="radio" id="analizsintact" name="interfaz" value="sintact">
-            <label for="analizsintact" onclick="location.href='#table-results';">Análisis Sintáctico</label>
-        </div>
-    </form>
+    <form class="info__sections">
+      <div class="info__sections__select">
+        <input type="radio" id="analizlex" name="interfaz" value="lex">
+        <label for="analizlex">Análisis léxico</label>
+      </div>
+      <div class="info__sections__select">
+        <input type="radio" id="analizsintact" name="interfaz" value="sintact">
+        <label for="analizsintact">Análisis Sintáctico</label>
+      </div>
+    </form>  
     </section>
   </section>
 

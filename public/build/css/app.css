@@ -224,6 +224,107 @@ body {
   font-size: 2rem;
 }
 
+.table-results__table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  overflow: auto;
+  max-height: 40rem;
+  display: block;
+  background-color: #fdfff7;
+  border: 0.1rem solid rgba(0, 0, 0, 0.05);
+}
+.table-results__table::-webkit-scrollbar {
+  width: 1rem;
+}
+.table-results__table::-webkit-scrollbar-track {
+  background: #c1cdff;
+  border-radius: 0.5rem;
+}
+.table-results__table::-webkit-scrollbar-thumb {
+  background: #a2b5ff;
+  border-radius: 0.5rem;
+  border: 0.2rem solid #c1cdff;
+}
+.table-results__table::-webkit-scrollbar-thumb:hover {
+  background: #839cff;
+}
+.table-results__table table {
+  width: 100%;
+}
+.table-results__table tr {
+  text-align: center;
+}
+.table-results__table td {
+  padding: 0.8rem;
+  border: 0.1rem solid rgba(0, 0, 0, 0.1);
+  font-size: 1.6rem;
+  color: #13072e;
+  overflow-wrap: break-word;
+  max-width: 10rem;
+  vertical-align: middle;
+}
+
+.ll1-header-row {
+  background: #d6c2ff;
+}
+
+.ll1-header-cell {
+  font-weight: bold;
+  font-size: 1.8rem;
+  color: #13072e;
+  white-space: nowrap;
+  background-color: #d6c2ff;
+}
+
+.ll1-nonterminal-cell {
+  font-weight: bold;
+  color: #13072e;
+  background-color: #f1fbd0;
+}
+
+.ll1-rule-cell {
+  background-color: #f6fde0;
+  color: #13072e;
+  font-weight: bold;
+}
+
+.ll1-empty-cell {
+  background-color: #fafef0;
+  color: #885fe7;
+}
+
+.ll1-second-table {
+  margin-top: 2rem;
+  border-spacing: 0;
+  border: 0.1rem solid rgba(0, 0, 0, 0.05);
+  width: 100%;
+}
+.ll1-second-table td {
+  padding: 0.8rem;
+  font-size: 1.4rem;
+  border: 0.1rem solid rgba(0, 0, 0, 0.1);
+}
+.ll1-second-table .ll1-terminal-cell {
+  background-color: #ecf9c0;
+  color: #13072e;
+  font-weight: bold;
+}
+.ll1-second-table .ll1-action-cell {
+  background-color: #fafef0;
+  color: #13072e;
+}
+.ll1-second-table .ll1-pop-cell {
+  background-color: #e0e6ff;
+  font-weight: bold;
+  color: #13072e;
+}
+.ll1-second-table .ll1-error-cell {
+  background-color: #fce3ff;
+  font-weight: bold;
+  color: #13072e;
+}
+
 .test {
   margin: 2rem auto;
   width: 100%;

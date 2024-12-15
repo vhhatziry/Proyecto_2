@@ -1,4 +1,5 @@
 // app.js
+
 import { instanciarAnalizadorLexicoGramaticas, parseAFDFile } from './parser_utils.js';
 import { Grammar } from './grammar.js';
 import { AnalizadorLexico, SimbolosEspeciales } from './analizador_lexico.js';
@@ -16,65 +17,6 @@ const appState = {
 };
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // PRIMERA PRUEBA DE LÉXICO (opcional)
-    const cadenaPrueba1 = "<G> -> <Reglas>; epsilon" +
-                          "<Reglas> -> <Regla> <SEMICOLON> <ReglasP>;" +
-                          "<ReglasP> -> <Regla> <SEMICOLON> <ReglasP> | <epsilon>;" +
-                          "<Regla> -> <LadoIzq> <flecha> <LadosDerechos>;" +
-                          "<LadoIzq> -> <SIMBOLO>;" +
-                          "<LadosDerechos> -> <LadoDerecho> <LadosDerechosP>;" +
-                          "<LadosDerechosP> -> <OR> <LadoDerecho> <LadosDerechosP> | <epsilon>;" +
-                          "<LadoDerecho> -> <Simbolos>;" +
-                          "<Simbolos> -> <SIMBOLO> <SimbolosP>;" +
-                          "<SimbolosP> -> <SIMBOLO> <SimbolosP> | <epsilon>;";
-
-    const analizadorLexico1 = await instanciarAnalizadorLexicoGramaticas(cadenaPrueba1);
-    if (analizadorLexico1) {
-        let token;
-        while ((token = analizadorLexico1.yylex()) !== 0 && token !== SimbolosEspeciales.ERROR) {
-            console.log("Token:", token, "Lexema:", analizadorLexico1.getLexema());
-        }
-        if (token === 0) {
-            console.log("Fin de entrada (primer análisis).");
-        } else {
-            console.error("Error léxico en:", analizadorLexico1.getLexema());
-        }
-    } else {
-        console.error("No se pudo instanciar el analizador léxico (primer análisis).");
-    }
-
-    // SEGUNDA PRUEBA DE GRAMÁTICA (opcional)
-    const cadenaPrueba2 = "<G> -> <Reglas>;" +
-                          "<Reglas> -> <Regla> <SEMICOLON> <ReglasP>;" +
-                          "<ReglasP> -> <Regla> <SEMICOLON> <ReglasP> | epsilon;" +
-                          "<Regla> -> <LadoIzq> <flecha> <LadosDerechos>;" +
-                          "<LadoIzq> -> <SIMBOLO>;" +
-                          "<LadosDerechos> -> <LadoDerecho> <LadosDerechosP>;" +
-                          "<LadosDerechosP> -> <OR> <LadoDerecho> <LadosDerechosP> | epsilon;" +
-                          "<LadoDerecho> -> <Simbolos>;" +
-                          "<Simbolos> -> <SIMBOLO> <SimbolosP>;" +
-                          "<SimbolosP> -> <SIMBOLO> <SimbolosP> | epsilon;";
-    const analizadorLexico2 = await instanciarAnalizadorLexicoGramaticas(cadenaPrueba2);
-
-    if (analizadorLexico2) {
-        const grammar = new Grammar(analizadorLexico2);
-        const resultado = await grammar.parse();
-        grammar.removeLeftRecursion();
-        if (resultado) {
-            console.log("Gramática analizada correctamente (segunda prueba).");
-            console.log("Número de reglas:", grammar.NumReglas);
-            for (let i = 0; i < grammar.NumReglas; i++) {
-                const regla = grammar.Reglas[i];
-                const ladoDerecho = regla.Lista.map(n => n.NombSimb + (n.EsTerminal ? "(T)" : "(NT)")).join(" ");
-                console.log(`${regla.NombSimb} -> ${ladoDerecho}`);
-            }
-        } else {
-            console.error("Error al analizar la gramática (segunda prueba).");
-        }
-    } else {
-        console.error("No se pudo instanciar el analizador léxico (segunda prueba).");
-    }
-
     const matrizInput = document.getElementById('matrizInput');
     const cargarAFDButton = document.getElementById('cargarAFD');
     const testLexButton = document.getElementById('testLex');
@@ -91,7 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     testLexButton.disabled = true;
 
-    // Modo por defecto: análisis léxico
+    // Por defecto análisis léxico
     lexSection.style.display = 'block';
     sintactSection.style.display = 'none';
     testLexButton.textContent = "Analizar Léxicamente";
@@ -136,26 +78,56 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     testLexButton.addEventListener('click', () => {
-        if (!appState.userLexAnalyzer) {
-            alert('Primero carga el AFD.');
-            return;
-        }
-
-        lexResultsTable.innerHTML = '';
         const sigma = document.getElementById('sigma').value.trim();
-        appState.userLexAnalyzer.setSigma(sigma);
 
-        let token;
-        while ((token = appState.userLexAnalyzer.yylex()) !== 0 && token !== SimbolosEspeciales.ERROR) {
-            const lexema = appState.userLexAnalyzer.getLexema();
-            agregarFilaLexResults(lexResultsTable, lexema, token);
-        }
+        if (appState.currentMode === 'lex') {
+            if (!appState.userLexAnalyzer) {
+                alert('Primero carga el AFD.');
+                return;
+            }
 
-        if (token === 0) {
-            console.log("Fin de entrada (análisis usuario).");
-            agregarFilaLexResults(lexResultsTable, 'FIN', '0');
-        } else if (token === SimbolosEspeciales.ERROR) {
-            agregarFilaLexResults(lexResultsTable, appState.userLexAnalyzer.getLexema(), 'ERROR');
+            lexResultsTable.innerHTML = '';
+            appState.userLexAnalyzer.setSigma(sigma);
+
+            let token;
+            while ((token = appState.userLexAnalyzer.yylex()) !== 0 && token !== SimbolosEspeciales.ERROR) {
+                const lexema = appState.userLexAnalyzer.getLexema();
+                agregarFilaLexResults(lexResultsTable, lexema, token);
+            }
+
+            if (token === 0) {
+                console.log("Fin de entrada (análisis usuario).");
+                agregarFilaLexResults(lexResultsTable, 'FIN', '0');
+            } else if (token === SimbolosEspeciales.ERROR) {
+                agregarFilaLexResults(lexResultsTable, appState.userLexAnalyzer.getLexema(), 'ERROR');
+            }
+        } else {
+            // Modo sintáctico
+            if (!appState.userLexAnalyzer) {
+                alert("No se ha cargado el AFD.");
+                return;
+            }
+            if (!appState.ll1Table || !appState.currentGrammar) {
+                alert("No se ha generado la tabla LL1. Por favor genera la tabla LL1 primero.");
+                return;
+            }
+
+            const sintactTable = document.querySelector('#sintact .result__table');
+            sintactTable.innerHTML = '';
+
+            const steps = analizarSintacticamente(sigma, appState.currentGrammar, appState.ll1Table, appState.userAutomata);
+
+            const header = sintactTable.insertRow();
+            let h1 = header.insertCell(); h1.textContent = "Pila";
+            let h2 = header.insertCell(); h2.textContent = "Sigma";
+            let h3 = header.insertCell(); h3.textContent = "Operación";
+
+            for (let step of steps) {
+                const row = sintactTable.insertRow();
+                let c1 = row.insertCell(); c1.textContent = step.stack;
+                let c2 = row.insertCell(); c2.textContent = step.input;
+                let c3 = row.insertCell(); c3.textContent = step.operation;
+            }
         }
     });
 
@@ -219,7 +191,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 });
 
-// Funciones auxiliares
 async function actualizarGrammarDesdeTexto() {
     const grammarText = document.getElementById('grammarText').value.trim();
 
@@ -314,7 +285,12 @@ function mostrarTablaLL1EnInterfaz(table) {
     const tableContainer = document.querySelector('.table-results__table');
     tableContainer.innerHTML = '';
 
-    // Obtener no terminales y tokens
+    const grammar = appState.currentGrammar;
+    const reglasTexto = grammar.Reglas.map((r, i) => {
+        const ladoDerecho = r.Lista.map(n => n.NombSimb).join(" ");
+        return r.NombSimb + " -> " + ladoDerecho;
+    });
+
     const noTerminales = Object.keys(table);
     const tokensSet = new Set();
 
@@ -326,29 +302,180 @@ function mostrarTablaLL1EnInterfaz(table) {
 
     const tokens = Array.from(tokensSet);
 
-    // Crear encabezado
     const headerRow = tableContainer.insertRow();
+    headerRow.classList.add('ll1-header-row');
     let th = headerRow.insertCell();
     th.textContent = 'NT/TOK';
+    th.classList.add('ll1-header-cell');
 
     for (let tok of tokens) {
         const cell = headerRow.insertCell();
         cell.textContent = tok;
+        cell.classList.add('ll1-header-cell');
     }
 
-    // Llenar filas para cada no terminal
     for (let A of noTerminales) {
         const row = tableContainer.insertRow();
+        row.classList.add('ll1-row');
         const cellNT = row.insertCell();
         cellNT.textContent = A;
+        cellNT.classList.add('ll1-nonterminal-cell');
 
         for (let tok of tokens) {
             const cell = row.insertCell();
+            cell.classList.add('ll1-cell');
             if (table[A][tok] !== undefined) {
-                cell.textContent = table[A][tok];
+                const reglaIndex = table[A][tok]; 
+                cell.textContent = reglasTexto[reglaIndex];
+                cell.classList.add('ll1-rule-cell');
             } else {
                 cell.textContent = ''; 
+                cell.classList.add('ll1-empty-cell');
             }
         }
     }
+
+    const terminales = new Set();
+    for (let i = 0; i < grammar.NumReglas; i++) {
+        for (let nodo of grammar.Reglas[i].Lista) {
+            if (nodo.EsTerminal && nodo.NombSimb !== 'ε') {
+                terminales.add(nodo.NombSimb);
+            }
+        }
+    }
+
+    const terminalList = Array.from(terminales);
+
+    const expandDiv = document.querySelector('.table-results__expand');
+    expandDiv.innerHTML = '';
+
+    const secondTable = document.createElement('table');
+    secondTable.classList.add('table-results__table', 'll1-second-table');
+    expandDiv.appendChild(secondTable);
+
+    const secHeader = secondTable.insertRow();
+    let secTh = secHeader.insertCell();
+    secTh.textContent = "Term/Term";
+    secTh.classList.add('ll1-header-cell');
+
+    for (let t1 of terminalList) {
+        const cell = secHeader.insertCell();
+        cell.textContent = t1;
+        cell.classList.add('ll1-header-cell');
+    }
+
+    for (let tTop of terminalList) {
+        const row = secondTable.insertRow();
+        const cellTerm = row.insertCell();
+        cellTerm.textContent = tTop;
+        cellTerm.classList.add('ll1-terminal-cell');
+
+        for (let tInput of terminalList) {
+            const cell = row.insertCell();
+            cell.classList.add('ll1-action-cell');
+            if (tTop === tInput) {
+                cell.textContent = 'pop';
+                cell.classList.add('ll1-pop-cell');
+            } else {
+                cell.textContent = 'error';
+                cell.classList.add('ll1-error-cell');
+            }
+        }
+    }
+}
+
+function analizarSintacticamente(sigma, grammar, ll1Table, automata) {
+
+    const lexAnalyzer = new AnalizadorLexico(sigma, automata);
+    let tokens = [];
+    let lexemas = [];
+    let tk;
+    while ((tk = lexAnalyzer.yylex()) !== 0 && tk !== SimbolosEspeciales.ERROR) {
+        tokens.push(tk);
+        lexemas.push(lexAnalyzer.getLexema());
+    }
+    if (tk === SimbolosEspeciales.ERROR) {
+        return [{stack:"", input:sigma, operation:"Error léxico"}];
+    }
+
+    tokens.push('FIN');
+    lexemas.push('$'); // '$' para indicar fin de entrada
+
+    // Pila: poner símbolo inicial
+    const startSymbol = grammar.Reglas[0].NombSimb;
+    let stack = ['FIN', startSymbol];
+
+    let steps = [];
+    let pos = 0; // índice en tokens
+
+    function stackString() {
+        // La pila se muestra de arriba hacia abajo, top al final
+        return stack.slice().reverse().join(" ");
+    }
+
+    function inputString() {
+        // Mostrar lexemas desde pos en adelante
+        return lexemas.slice(pos).join(" ");
+    }
+
+    steps.push({stack: stackString(), input: inputString(), operation: "Iniciar"});
+
+    while (true) {
+        let X = stack[stack.length - 1]; // tope
+        let a = tokens[pos]; // token actual
+        let aLex = lexemas[pos];
+
+        if (X === 'FIN' && a === 'FIN') {
+            steps.push({stack: stackString(), input: inputString(), operation: "aceptar"});
+            break;
+        }
+
+        if (X === 'ε') {
+            // desapilar epsilon sin consumir
+            stack.pop();
+            steps.push({stack: stackString(), input: inputString(), operation:"Desapilar ε"});
+            continue;
+        }
+
+        if (esTerminal(X, grammar)) {
+            if (X === aLex || X === '$' || grammar.TerminalesTokens[X] === a) {
+                // Coincide terminal
+                stack.pop();
+                pos++;
+                steps.push({stack: stackString(), input: inputString(), operation:"pop"});
+            } else {
+                steps.push({stack: stackString(), input: inputString(), operation:"error"});
+                break;
+            }
+        } else {
+            // X es no terminal
+            let tokenEntrada = a;
+            let produccionIndex = ll1Table[X][tokenEntrada];
+            if (produccionIndex === undefined) {
+                steps.push({stack: stackString(), input: inputString(), operation:"error"});
+                break;
+            }
+
+            // Desapilar X
+            stack.pop();
+            const regla = grammar.Reglas[produccionIndex];
+            const ladoDer = regla.Lista.map(n => n.NombSimb).join(" ");
+
+            // Apilar en orden normal (izq->der) para que el último simbolo de la producción quede arriba
+            for (let i = regla.Lista.length - 1; i >= 0; i--) {
+                let simb = regla.Lista[i].NombSimb;
+                stack.push(simb);
+            }
+
+            steps.push({stack: stackString(), input: inputString(), operation: X + " -> " + ladoDer});
+        }
+    }
+
+    return steps;
+}
+
+function esTerminal(simb, grammar) {
+    if (simb === 'FIN') return false; 
+    if (simb === 'ε') return true;
+    return !grammar.SimbNoTerm.has(simb);
 }

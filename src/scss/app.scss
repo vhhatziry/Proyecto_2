@@ -234,9 +234,9 @@ body {
     @include custom-scrollbar-variation;
     display: flex;  
     flex-direction: column;
+    max-width: 120rem;
     margin: 2rem auto;
     padding: 1rem;
-    width: 100%;
     height: 80rem;
     background-color: $russian-trans;
     justify-content: center;

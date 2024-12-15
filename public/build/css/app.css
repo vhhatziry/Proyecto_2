@@ -246,9 +246,9 @@ body {
 .table-results {
   display: flex;
   flex-direction: column;
+  max-width: 120rem;
   margin: 2rem auto;
   padding: 1rem;
-  width: 100%;
   height: 80rem;
   background-color: rgb(14.3356643357, 5.4475524476, 35.5524475524);
   justify-content: center;

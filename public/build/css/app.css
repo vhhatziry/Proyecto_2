@@ -85,11 +85,27 @@ body {
   resize: none;
   border-top: 1rem;
   border-bottom: 2rem;
+  padding: 0.5rem;
   background-color: rgb(169.6, 133, 255);
   box-shadow: 0 0 1.5rem #cc09de, 0 0 1rem #efa9fa;
   font-size: 2rem;
   text-align: left;
-  color: #e4d6ff;
+  color: #3600a3;
+}
+.grammar__text::-webkit-scrollbar {
+  width: 1.5rem;
+}
+.grammar__text::-webkit-scrollbar-track {
+  background: #c1cdff;
+  border-radius: 0.5rem;
+}
+.grammar__text::-webkit-scrollbar-thumb {
+  background: #7088ff;
+  border-radius: 0.5rem;
+  border: 0.2rem solid #c1cdff;
+}
+.grammar__text::-webkit-scrollbar-thumb:hover {
+  background: #839cff;
 }
 .grammar__contbutton {
   display: flex;
@@ -119,6 +135,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: auto;
   text-align: center;
   padding: 1rem 1rem;
   border-radius: 1rem;
@@ -126,6 +143,21 @@ body {
   max-width: 43rem;
   height: 30rem;
   background: linear-gradient(135deg, rgb(14.3356643357, 5.4475524476, 35.5524475524) 10%, #3f2182 90%);
+}
+.info__container::-webkit-scrollbar, .info__container--actions::-webkit-scrollbar {
+  width: 1.5rem;
+}
+.info__container::-webkit-scrollbar-track, .info__container--actions::-webkit-scrollbar-track {
+  background: #c1cdff;
+  border-radius: 0.5rem;
+}
+.info__container::-webkit-scrollbar-thumb, .info__container--actions::-webkit-scrollbar-thumb {
+  background: #7088ff;
+  border-radius: 0.5rem;
+  border: 0.2rem solid #c1cdff;
+}
+.info__container::-webkit-scrollbar-thumb:hover, .info__container--actions::-webkit-scrollbar-thumb:hover {
+  background: #839cff;
 }
 .info__container__title {
   display: flex;
@@ -223,7 +255,6 @@ body {
   color: #a2b5ff;
   font-size: 2rem;
 }
-
 .table-results__table {
   width: 100%;
   border-collapse: collapse;
@@ -233,24 +264,9 @@ body {
   display: block;
   background-color: #fdfff7;
   border: 0.1rem solid rgba(0, 0, 0, 0.05);
-}
-.table-results__table::-webkit-scrollbar {
-  width: 1rem;
-}
-.table-results__table::-webkit-scrollbar-track {
-  background: #c1cdff;
-  border-radius: 0.5rem;
-}
-.table-results__table::-webkit-scrollbar-thumb {
-  background: #a2b5ff;
-  border-radius: 0.5rem;
-  border: 0.2rem solid #c1cdff;
-}
-.table-results__table::-webkit-scrollbar-thumb:hover {
-  background: #839cff;
-}
-.table-results__table table {
-  width: 100%;
+  /*  table {
+      width: 100%;
+    }   es necesaria?*/
 }
 .table-results__table tr {
   text-align: center;

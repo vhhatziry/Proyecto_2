@@ -69,16 +69,18 @@ body {
     }
   
     &__text {
+        @include custom-scrollbar;
         width: 70rem;
         height: 12rem;
         resize: none;
         border-top: 1rem;
         border-bottom: 2rem;
+        padding: 0.5rem;
         background-color: $indigo-trans; 
         box-shadow: 0 0 1.5rem $mauve-900, 0 0 1rem $mauve;
         font-size: 2rem;
         text-align: left;
-        color: $tropical-indigo-800; 
+        color: $tropical-indigo-200; 
     }
   
     &__contbutton { 
@@ -105,10 +107,12 @@ body {
     display: flex;
     gap: 2rem;
     &__container {
+        @include custom-scrollbar;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        overflow: auto;
         text-align: center;
         padding: 1rem 1rem;
         border-radius: 1rem;
@@ -209,68 +213,50 @@ body {
     }
 }
 
-.table-results{
+.table-results {
     margin: 2rem auto;
     width: 100%;
     max-width: 120rem;
     display: flex;
-    &__title{
-        display: block;
-        align-items: center;
-        justify-content: center;   
-        color: $vista-blue-300;
-        font-size: 2rem;
+  
+    &__title {
+      display: block;
+      align-items: center;
+      justify-content: center;
+      color: $vista-blue-300;
+      font-size: 2rem;
     }
-}
-
-.table-results__table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 2rem 0;
-    overflow: auto;
-    max-height: 40rem;
-    display: block; // Para permitir scroll interno
-    background-color: $baby-powder-500; // Fondo muy claro
-    border: 0.1rem solid rgba(0,0,0,0.05);
-
-    &::-webkit-scrollbar {
-        width: 1rem;
-    }
-
-    &::-webkit-scrollbar-track {
-        background: $vista-blue-200; // tono suave para track
-        border-radius: 0.5rem;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background: $vista-blue-300; // un tono más oscuro del azul pastel
-        border-radius: 0.5rem;
-        border: 0.2rem solid $vista-blue-200;
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-        background: $vista-blue-400; 
-    }
-
-    table {
+  
+    &__table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      overflow: auto;
+      max-height: 40rem;
+      display: block; // Para permitir scroll interno
+      background-color: $baby-powder-500; // Fondo muy claro
+      border: 0.1rem solid rgba(0, 0, 0, 0.05);
+  
+    /*  table {
         width: 100%;
-    }
-
-    tr {
+      }   es necesaria?*/ 
+  
+      tr {
         text-align: center;
-    }
-
-    td {
+      }
+  
+      td {
         padding: 0.8rem;
-        border: 0.1rem solid rgba(0,0,0,0.1);
+        border: 0.1rem solid rgba(0, 0, 0, 0.1);
         font-size: 1.6rem;
         color: $russian-violet-500; // texto oscuro suave
         overflow-wrap: break-word;
         max-width: 10rem;
         vertical-align: middle;
+      }
     }
-}
-
+  }
+  
 // Encabezado (no terminal vs tokens)
 .ll1-header-row {
     background: $tropical-indigo-700; // lila pastel suave

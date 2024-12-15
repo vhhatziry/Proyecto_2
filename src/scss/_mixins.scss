@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 //mixin para poppins
 @mixin fuentePoppins(){
     font-family: 'Poppins', sans-serif;
@@ -97,3 +99,25 @@
     @include poppins-black();
     @include poppins-italic();
 }
+
+   
+@mixin custom-scrollbar(){
+    &::-webkit-scrollbar {
+      width: 1.5rem;
+    }
+  
+    &::-webkit-scrollbar-track {
+      background: $vista-blue-200; 
+      border-radius: 0.5rem;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background: $vista-blue-600; 
+      border-radius: 0.5rem;
+      border: 0.2rem solid $vista-blue-200;
+    }
+  
+    &::-webkit-scrollbar-thumb:hover {
+      background: $vista-blue-400; 
+    }
+} 

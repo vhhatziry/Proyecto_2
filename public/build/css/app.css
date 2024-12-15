@@ -108,6 +108,9 @@ body {
   text-align: left;
   color: #3600a3;
 }
+.grammar__text::placeholder {
+  color: #8547ff;
+}
 .grammar__contbutton {
   display: flex;
   align-items: center;
@@ -122,6 +125,10 @@ body {
   border: none;
   text-decoration: none;
   cursor: pointer;
+}
+.grammar__button:hover, .test__button:hover {
+  background-color: blue;
+  color: white;
 }
 
 .info {
@@ -199,6 +206,10 @@ body {
   text-decoration: none;
   cursor: pointer;
 }
+.info__button:hover {
+  background-color: #dd59ec;
+  color: white;
+}
 .info__sections {
   width: 100%;
   display: flex;
@@ -231,13 +242,42 @@ body {
 }
 
 .table-results {
-  margin: 2rem auto;
-  width: 100%;
-  max-width: 120rem;
   display: flex;
   flex-direction: column;
-  background-color: rgb(14.3356643357, 5.4475524476, 35.5524475524);
+  margin: 2rem auto;
   padding: 1rem;
+  width: 100%;
+  background-color: rgb(14.3356643357, 5.4475524476, 35.5524475524);
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  overflow: auto;
+}
+.table-results::-webkit-scrollbar {
+  width: 1.5rem;
+}
+.table-results::-webkit-scrollbar-track {
+  background: #c1cdff;
+  border-radius: 0.5rem;
+}
+.table-results::-webkit-scrollbar-thumb {
+  background: #7088ff;
+  border-radius: 0.5rem;
+  border: 0.2rem solid #c1cdff;
+}
+.table-results::-webkit-scrollbar-thumb:hover {
+  background: #839cff;
+}
+.table-results::-webkit-scrollbar-track {
+  background: #e4d6ff;
+}
+.table-results::-webkit-scrollbar-thumb {
+  background: #5200f5;
+  border-radius: 0.5rem;
+  border: 0.2rem solid #3600a3;
+}
+.table-results::-webkit-scrollbar-thumb:hover {
+  background: #8547ff;
 }
 .table-results__title {
   display: flex;
@@ -250,6 +290,7 @@ body {
   display: flex;
   justify-content: center;
   align-content: center;
+  text-align: center;
   border-collapse: collapse;
   margin: 2rem 0;
   overflow: auto;
@@ -258,19 +299,51 @@ body {
   background-color: rgb(14.3356643357, 5.4475524476, 35.5524475524);
   border: 0.1rem solid rgba(0, 0, 0, 0.05);
 }
+.table-results__table::-webkit-scrollbar {
+  width: 1.5rem;
+}
+.table-results__table::-webkit-scrollbar-track {
+  background: #c1cdff;
+  border-radius: 0.5rem;
+}
+.table-results__table::-webkit-scrollbar-thumb {
+  background: #7088ff;
+  border-radius: 0.5rem;
+  border: 0.2rem solid #c1cdff;
+}
+.table-results__table::-webkit-scrollbar-thumb:hover {
+  background: #839cff;
+}
+.table-results__table::-webkit-scrollbar-track {
+  background: #e4d6ff;
+}
+.table-results__table::-webkit-scrollbar-thumb {
+  background: #5200f5;
+  border-radius: 0.5rem;
+  border: 0.2rem solid #3600a3;
+}
+.table-results__table::-webkit-scrollbar-thumb:hover {
+  background: #8547ff;
+}
 .table-results__table tr {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  flex: auto;
   text-align: center;
 }
 .table-results__table td {
-  padding: 0.8rem;
-  border: 0.1rem solid rgba(0, 0, 0, 0.1);
-  font-size: 1.6rem;
-  color: #13072e;
-  overflow-wrap: break-word;
-  max-width: 10rem;
-  vertical-align: middle;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
+  text-align: center;
+  padding: 0.8rem;
+  border: 0.1rem solid rgba(0, 0, 0, 0.1);
+  font-size: 1.5rem;
+  color: #13072e;
+  overflow-wrap: break-word;
+  vertical-align: middle;
+}
+.table-results__table tr:nth-child(1) td {
+  background: #f9c8ff;
 }
 .table-results__table tr:nth-child(even) td, .table-results__table tr:nth-child(4) td {
   background: #f9c8ff;
@@ -280,13 +353,15 @@ body {
 }
 .table-results__table tr:first-child td {
   background: #8547ff;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 1.7rem;
 }
 
-.ll1-header-row {
+.ll1-header__row {
   background: #d6c2ff;
 }
-
-.ll1-header-cell {
+.ll1-header__cell {
   font-weight: bold;
   font-size: 1.8rem;
   color: #13072e;
@@ -294,19 +369,19 @@ body {
   background-color: #d6c2ff;
 }
 
-.ll1-nonterminal-cell {
+.ll1-nonterminal__cell {
   font-weight: bold;
   color: #13072e;
   background-color: #f1fbd0;
 }
 
-.ll1-rule-cell {
+.ll1-rule__cell {
   background-color: #f6fde0;
   color: #13072e;
   font-weight: bold;
 }
 
-.ll1-empty-cell {
+.ll1-empty__cell {
   background-color: #fafef0;
   color: #885fe7;
 }
@@ -322,21 +397,21 @@ body {
   font-size: 1.4rem;
   border: 0.1rem solid rgba(0, 0, 0, 0.1);
 }
-.ll1-second-table .ll1-terminal-cell {
+.ll1-second-table__terminal-cell {
   background-color: #ecf9c0;
   color: #13072e;
   font-weight: bold;
 }
-.ll1-second-table .ll1-action-cell {
+.ll1-second-table__action-cell {
   background-color: #fafef0;
   color: #13072e;
 }
-.ll1-second-table .ll1-pop-cell {
+.ll1-second-table__pop-cell {
   background-color: #e0e6ff;
   font-weight: bold;
   color: #13072e;
 }
-.ll1-second-table .ll1-error-cell {
+.ll1-second-table__error-cell {
   background-color: #fce3ff;
   font-weight: bold;
   color: #13072e;
@@ -414,21 +489,6 @@ body {
 .test__sigma:focus {
   outline: none;
 }
-.test__sigma::-webkit-scrollbar {
-  width: 1rem;
-}
-.test__sigma::-webkit-scrollbar-track {
-  background: #f1ebff;
-  border-radius: 0.5rem;
-}
-.test__sigma::-webkit-scrollbar-thumb {
-  background: #8547ff;
-  border-radius: 0.5rem;
-  border: 0.2rem solid #f1ebff;
-}
-.test__sigma::-webkit-scrollbar-thumb:hover {
-  background: #5200f5;
-}
 .test__button {
   margin: 0 auto;
 }
@@ -436,21 +496,62 @@ body {
 .result {
   margin: 2rem auto;
   width: 100%;
-  max-width: 120rem;
   max-height: 50rem;
   display: flex;
   flex-direction: column;
+  align-content: center;
   overflow-y: auto;
 }
+.result::-webkit-scrollbar {
+  width: 1.5rem;
+}
+.result::-webkit-scrollbar-track {
+  background: #c1cdff;
+  border-radius: 0.5rem;
+}
+.result::-webkit-scrollbar-thumb {
+  background: #7088ff;
+  border-radius: 0.5rem;
+  border: 0.2rem solid #c1cdff;
+}
+.result::-webkit-scrollbar-thumb:hover {
+  background: #839cff;
+}
+.result::-webkit-scrollbar-track {
+  background: #e4d6ff;
+}
+.result::-webkit-scrollbar-thumb {
+  background: #5200f5;
+  border-radius: 0.5rem;
+  border: 0.2rem solid #3600a3;
+}
+.result::-webkit-scrollbar-thumb:hover {
+  background: #8547ff;
+}
 .result__title {
-  font-size: 2.2rem;
   font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-family: "Poppins", sans-serif;
   font-style: italic;
+  font-size: 2.2rem;
   color: #f9c8ff;
+  text-align: center;
+}
+.result__table {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  width: 100%;
+  overflow: auto;
+  align-content: center;
+  text-align: center;
+  font-size: 1.3rem;
+}
+.result__table tr:first-child td {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
 }
 .result__table td {
-  font-family: "Poppins", sans-serif;
-  font-weight: 300;
+  width: auto;
+  padding: 1rem 1rem;
 }/*# sourceMappingURL=app.css.map */

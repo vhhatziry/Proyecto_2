@@ -84,6 +84,9 @@ body {
         font-size: 2rem;
         text-align: left;
         color: $tropical-indigo-200; 
+        &::placeholder{
+            color: $tropical-indigo-400;
+        }
     }
   
     &__contbutton { 
@@ -100,9 +103,12 @@ body {
         border: none;
         text-decoration: none;
         cursor: pointer;
-    }
+        &:hover {
+            background-color: blue; 
+            color: white;            
+        }
   }
-
+}
 .info{
     margin: 1rem auto;
     width: 100%;
@@ -167,6 +173,7 @@ body {
             background: none;
             gap: 1rem;
         }
+        
       }
     &__button{
         @include poppins-extralight-italic;
@@ -180,6 +187,10 @@ body {
         max-width: 20rem;
         text-decoration: none;
         cursor: pointer;
+        &:hover{
+            background-color: $mauve-700; 
+            color: white; 
+        }
     }
 
     &__sections{
@@ -218,13 +229,17 @@ body {
 }
 
 .table-results {
-    margin: 2rem auto;
-    width: 100%;
-    max-width: 120rem;
+    @include custom-scrollbar-variation;
     display: flex;  
     flex-direction: column;
-    background-color: $russian-trans;
+    margin: 2rem auto;
     padding: 1rem;
+    width: 100%;
+    background-color: $russian-trans;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    overflow: auto;
     &__title {
       display: flex;
       align-items: center;
@@ -236,6 +251,7 @@ body {
         display: flex;
         justify-content: center;
         align-content: center;
+        text-align: center;
         border-collapse: collapse;
         margin: 2rem 0;
         overflow: auto;
@@ -243,21 +259,27 @@ body {
         width: auto;
         background-color: $russian-trans;
         border: 0.1rem solid rgba(0, 0, 0, 0.05);
-    
+        @include custom-scrollbar-variation;
         tr {
+            @include poppins-extrabold;
+            flex: auto;
             text-align: center;
         }
     
         td {
+            @include poppins-medium;
+            text-align: center;
             padding: 0.8rem;
             border: 0.1rem solid rgba(0, 0, 0, 0.1);
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             color: $russian-violet-500; 
             overflow-wrap: break-word;
-            max-width: 10rem;
             vertical-align: middle;
-            @include poppins-medium;
         }
+
+        tr:nth-child(1) td {
+            background: $mauve-200;
+          }
 
         tr:nth-child(even) td , tr:nth-child(4) td{
             background:  $mauve-200;
@@ -269,81 +291,89 @@ body {
 
           tr:first-child td {
             background:  $tropical-indigo-400;
+            @include poppins-bold;
+            font-size: 1.7rem;
           }
     }
   }
   
 // Encabezado (no terminal vs tokens)
-.ll1-header-row {
-    background: $tropical-indigo-700; // lila pastel suave
-}
-
-.ll1-header-cell {
-    font-weight: bold;
-    font-size: 1.8rem;
-    color: $russian-violet-500; // texto oscuro
-    white-space: nowrap;
-    background-color: $tropical-indigo-700;
-}
-
-// No terminales en la primer columna
-.ll1-nonterminal-cell {
-    font-weight: bold;
-    color: $russian-violet-500;
-    background-color: $baby-powder-300; // verde muy claro pastel
-}
-
-// Reglas (producciones) en las celdas
-.ll1-rule-cell {
-    background-color: $baby-powder-200; // un tono más claro
-    color: $russian-violet-500;
-    font-weight: bold;
-}
-
-// Celdas vacías
-.ll1-empty-cell {
-    background-color: $baby-powder-100; // casi blanco pastel
-    color: $russian-violet-800; 
-}
-
-// Segunda tabla (terminal vs terminal)
-.ll1-second-table {
+.ll1-header {
+    &__row {
+      background: $tropical-indigo-700; // lila pastel suave
+    }
+  
+    &__cell {
+      font-weight: bold;
+      font-size: 1.8rem;
+      color: $russian-violet-500; // texto oscuro
+      white-space: nowrap;
+      background-color: $tropical-indigo-700;
+    }
+  }
+  
+  // No terminales en la primer columna
+  .ll1-nonterminal {
+    &__cell {
+      font-weight: bold;
+      color: $russian-violet-500;
+      background-color: $baby-powder-300; // verde muy claro pastel
+    }
+  }
+  
+  // Reglas (producciones) en las celdas
+  .ll1-rule {
+    &__cell {
+      background-color: $baby-powder-200; // un tono más claro
+      color: $russian-violet-500;
+      font-weight: bold;
+    }
+  }
+  
+  // Celdas vacías
+  .ll1-empty {
+    &__cell {
+      background-color: $baby-powder-100; // casi blanco pastel
+      color: $russian-violet-800;
+    }
+  }
+  
+  // Segunda tabla (terminal vs terminal)
+  .ll1-second-table {
     margin-top: 2rem;
     border-spacing: 0;
-    border: 0.1rem solid rgba(0,0,0,0.05);
+    border: 0.1rem solid rgba(0, 0, 0, 0.05);
     width: 100%;
-
+  
     td {
-        padding: 0.8rem;
-        font-size: 1.4rem;
-        border: 0.1rem solid rgba(0,0,0,0.1);
+      padding: 0.8rem;
+      font-size: 1.4rem;
+      border: 0.1rem solid rgba(0, 0, 0, 0.1);
     }
-
-    .ll1-terminal-cell {
-        background-color: $baby-powder-400; 
-        color: $russian-violet-500;
-        font-weight: bold;
+  
+    &__terminal-cell {
+      background-color: $baby-powder-400;
+      color: $russian-violet-500;
+      font-weight: bold;
     }
-
-    .ll1-action-cell {
-        background-color: $baby-powder-100;
-        color: $russian-violet-500;
+  
+    &__action-cell {
+      background-color: $baby-powder-100;
+      color: $russian-violet-500;
     }
-
-    .ll1-pop-cell {
-        background-color: $vista-blue-100; // azul pastel muy claro
-        font-weight: bold;
-        color: $russian-violet-500;
+  
+    &__pop-cell {
+      background-color: $vista-blue-100; // azul pastel muy claro
+      font-weight: bold;
+      color: $russian-violet-500;
     }
-
-    .ll1-error-cell {
-        background-color: $mauve-100; // rosa pastel muy claro
-        font-weight: bold;
-        color: $russian-violet-500;
+  
+    &__error-cell {
+      background-color: $mauve-100; // rosa pastel muy claro
+      font-weight: bold;
+      color: $russian-violet-500;
     }
-}
-
-
+  }
 
 .test {
     margin: 2rem auto;
@@ -415,25 +445,6 @@ body {
         &:focus {
             outline: none;
         }
-    
-        &::-webkit-scrollbar {
-            width: 1rem; 
-        }
-    
-        &::-webkit-scrollbar-track {
-            background: $tropical-indigo-900; 
-            border-radius: 0.5rem;
-        }
-    
-        &::-webkit-scrollbar-thumb {
-            background: $tropical-indigo-400;
-            border-radius: 0.5rem;
-            border: 0.2rem solid $tropical-indigo-900;
-        }
-    
-        &::-webkit-scrollbar-thumb:hover {
-            background: $tropical-indigo-300; 
-        }
     }
     
   
@@ -447,20 +458,33 @@ body {
 .result{
     margin: 2rem auto;
     width: 100%;
-    max-width: 120rem;
     max-height: 50rem;
     display: flex;
     flex-direction: column;
+    align-content: center;
     overflow-y: auto;
+    @include custom-scrollbar-variation;
     &__title{
-        font-size: 2.2rem;
         @include poppins-semibold-italic;
+        font-size: 2.2rem;
         color: $mauve-200;
+        text-align: center;
     }
     &__table{
         @extend .info__container__table;
+        @include poppins-medium;
+        width: 100%;
+        overflow: auto;
+        align-content: center;
+        text-align: center;
+        font-size: 1.3rem;
+        tr:first-child td{
+            @include poppins-extrabold;
+            font-size: 1.5rem;
+        }
         td{
-            @include poppins-light;
+            width: auto;
+            padding: 1rem 1rem;
         }
     }
 }

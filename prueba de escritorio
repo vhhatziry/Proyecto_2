@@ -1,0 +1,23 @@
+Ingresar en gramática:
+<G> -> <Reglas>;
+<Reglas> -> <Regla> <SEMICOLON> <ReglasP>;
+<ReglasP> -> <Regla> <SEMICOLON> <ReglasP> | epsilon;
+<Regla> -> <LadoIzq> <FLECHA> <LadosDerechos>;
+<LadoIzq> -> <SIMBOLO>;
+<LadosDerechos> -> <LadoDerecho> <LadosDerechosP>;
+<LadosDerechosP> -> <OR> <LadoDerecho> <LadosDerechosP> | epsilon;
+<LadoDerecho> -> <Simbolos>;
+<Simbolos> -> <SIMBOLO> <SimbolosP>;
+<SimbolosP> -> <SIMBOLO> <SimbolosP> | epsilon;
+
+
+Cargue el AFD "matriz.txt"
+
+Asigne los siguientes tokens:
+SEMICOLON	50
+FLECHA	    20
+SIMBOLO	    40
+OR          30
+
+Para analizarlo sintácticamente coloque la siguiente sigma:
+<regla>-><regla2>;

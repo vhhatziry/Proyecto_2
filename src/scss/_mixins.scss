@@ -121,3 +121,20 @@
       background: $vista-blue-400; 
     }
 } 
+
+@mixin custom-scrollbar-variation(){
+    @include custom-scrollbar();   
+    &::-webkit-scrollbar-track {
+      background: $tropical-indigo-800;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background: $tropical-indigo-300; 
+      border-radius: 0.5rem;
+      border: 0.2rem solid $tropical-indigo-200;
+    }
+  
+    &::-webkit-scrollbar-thumb:hover {
+      background: $tropical-indigo-400; 
+    }
+} 

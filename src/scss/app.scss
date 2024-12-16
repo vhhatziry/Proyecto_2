@@ -121,7 +121,6 @@ body {
         display: flex;
         flex-direction: column;
         align-items: center;
-        overflow: auto;
         text-align: center;
         padding: 1rem 1rem;
         border-radius: 1rem;
@@ -140,14 +139,13 @@ body {
           border-radius: 4rem;
           font-size: 1.4rem;
           margin-bottom: 1rem;
-          position: sticky;
-          top: 0 ;
         }
       
         &__table {
           display: flex;
           flex-direction: column; 
           align-items: center; 
+          overflow: auto;
           td {
             border: 4px transparent $trans;
             width: 100px;
@@ -460,8 +458,8 @@ body {
 
 .result{
     margin: 2rem auto;
-    width: 100%;
-    height: 63rem;
+    width: 120rem;
+    height: 60rem;
     display: flex;
     flex-direction: column;
     align-content: center;

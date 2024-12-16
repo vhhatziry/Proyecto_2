@@ -144,7 +144,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: auto;
   text-align: center;
   padding: 1rem 1rem;
   border-radius: 1rem;
@@ -163,13 +162,12 @@ body {
   border-radius: 4rem;
   font-size: 1.4rem;
   margin-bottom: 1rem;
-  position: sticky;
-  top: 0;
 }
 .info__container__table, .result__table {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: auto;
 }
 .info__container__table td, .result__table td {
   border: 4px transparent rgb(9.3, 0, 31);
@@ -498,8 +496,8 @@ body {
 
 .result {
   margin: 2rem auto;
-  width: 100%;
-  height: 63rem;
+  width: 120rem;
+  height: 60rem;
   display: flex;
   flex-direction: column;
   align-content: center;

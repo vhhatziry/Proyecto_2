@@ -13,14 +13,9 @@ const appState = {
     currentGrammar: null,
     grammarUpdateTimeout: null,
     currentMode: 'lex', // 'lex' o 'sintact'
-    ll1Table: null
+    ll1Table: null,
+    tokensAssigned: false
 };
-
-document.querySelectorAll('.info__sections__select input').forEach(input => {
-    input.addEventListener('click', () => {
-      document.querySelector('.result').scrollIntoView({ behavior: 'smooth' });
-    });
-  });  
 
 document.addEventListener('DOMContentLoaded', async () => {
     const matrizInput = document.getElementById('matrizInput');
@@ -30,20 +25,33 @@ document.addEventListener('DOMContentLoaded', async () => {
     const grammarText = document.getElementById('grammarText');
     const asignarTokensBtn = document.getElementById('asignarTokens');
     const crearTablaLL1Btn = document.getElementById('crearTablaLL1');
-
     const analizLexRadio = document.getElementById('analizlex');
     const analizSintactRadio = document.getElementById('analizsintact');
-
     const lexSection = document.getElementById('lex');
     const sintactSection = document.getElementById('sintact');
 
+    // Nuevo botón para ir a asignación de tokens (lo agregamos dinámicamente bajo el result del análisis léxico)
+    let goToTokensBtn = document.createElement('button');
+    goToTokensBtn.textContent = "Ir a asignación de tokens";
+    goToTokensBtn.className = "info__button";
+    goToTokensBtn.style.display = "none"; // inicialmente oculto
+    document.getElementById('lex').appendChild(goToTokensBtn);
+
+    // Deshabilitar análisis sintáctico hasta más adelante
+    analizSintactRadio.disabled = true; 
+
     testLexButton.disabled = true;
+    asignarTokensBtn.disabled = true; 
+    crearTablaLL1Btn.disabled = true;
 
     // Por defecto análisis léxico
     lexSection.style.display = 'block';
     sintactSection.style.display = 'none';
     testLexButton.textContent = "Analizar Léxicamente";
     appState.currentMode = 'lex';
+
+    // No se permite cambiar a análisis sintáctico todavía
+    analizLexRadio.checked = true;
 
     analizLexRadio.addEventListener('change', () => {
         if (analizLexRadio.checked) {
@@ -65,29 +73,35 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     cargarAFDButton.addEventListener('click', () => {
         matrizInput.click(); 
-    
-        // Esperar a que el archivo se seleccione
-        matrizInput.addEventListener('change', () => {
-            // Aquí el archivo ya se ha cargado
-            alert("AFD Cargado");
-        });
     });
 
     matrizInput.addEventListener('change', async (event) => {
         const file = event.target.files[0];
         if (!file) return;
-
+    
         try {
             const contenido = await leerArchivo(file);
             appState.userAutomata = parseAFDFile(contenido);
             appState.userLexAnalyzer = new AnalizadorLexico('', appState.userAutomata);
             console.log('Autómata cargado exitosamente.');
             testLexButton.disabled = false; 
+            alert("AFD Cargado. Ahora puede realizar análisis léxico.");
+    
+            // Resaltar el botón de análisis léxico si lo deseas
+            testLexButton.classList.add('highlight');
+    
+            // Desplazarse automáticamente a la sección de análisis léxico:
+            const lexSection = document.getElementById('lex');
+            if (lexSection) {
+              lexSection.scrollIntoView({ behavior: 'smooth' });
+            }
+    
         } catch (error) {
             console.error('Error al cargar el autómata:', error);
             alert('Error al cargar el autómata. Ver consola para detalles.');
         }
     });
+    
 
     testLexButton.addEventListener('click', () => {
         const sigma = document.getElementById('sigma').value.trim();
@@ -110,8 +124,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (token === 0) {
                 console.log("Fin de entrada (análisis usuario).");
                 agregarFilaLexResults(lexResultsTable, 'FIN', '0');
+                alert("Análisis léxico completado. Ahora asigne tokens a los terminales.");
+                // Mostrar botón "Ir a asignación de tokens"
+                goToTokensBtn.style.display = "block";
+                testLexButton.classList.remove('highlight');
+                goToTokensBtn.classList.add('highlight');
             } else if (token === SimbolosEspeciales.ERROR) {
                 agregarFilaLexResults(lexResultsTable, appState.userLexAnalyzer.getLexema(), 'ERROR');
+                alert("Error léxico encontrado, revise su cadena sigma.");
             }
         } else {
             // Modo sintáctico
@@ -143,6 +163,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
+    goToTokensBtn.addEventListener('click', () => {
+        // Ir a la tabla de terminales para asignar tokens
+        document.querySelector('.info').scrollIntoView({ behavior: 'smooth' });
+        goToTokensBtn.classList.remove('highlight');
+        asignarTokensBtn.disabled = false;
+        asignarTokensBtn.classList.add('highlight');
+    });
+
     grammarText.addEventListener('input', () => {
         if (appState.grammarUpdateTimeout) clearTimeout(appState.grammarUpdateTimeout);
         appState.grammarUpdateTimeout = setTimeout(() => {
@@ -157,6 +185,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         const term = document.getElementById('term');
+        let allAssigned = true;
         for (let i = 0; i < term.rows.length; i++) {
             const row = term.rows[i];
             const simboloTerminal = row.cells[0].textContent;
@@ -167,6 +196,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 appState.currentGrammar.TerminalesTokens[simboloTerminal] = parseInt(tokenVal, 10);
             } else {
                 delete appState.currentGrammar.TerminalesTokens[simboloTerminal];
+                allAssigned = false;
             }
         }
 
@@ -174,8 +204,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         for (let [sym, tok] of Object.entries(appState.currentGrammar.TerminalesTokens)) {
             console.log(sym, "->", tok);
         }
-        alert("Tokens asignados");
-        
+
+        if (!allAssigned) {
+            alert("Algunos terminales no tienen token asignado.");
+        } else {
+            alert("Tokens asignados correctamente.");
+            appState.tokensAssigned = true;
+            asignarTokensBtn.classList.remove('highlight');
+            crearTablaLL1Btn.disabled = false;
+            crearTablaLL1Btn.classList.add('highlight');
+        }
     });
 
     crearTablaLL1Btn.addEventListener('click', () => {
@@ -201,7 +239,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log("Tabla LL1 generada:");
         console.log(appState.ll1Table);
         mostrarTablaLL1EnInterfaz(appState.ll1Table);
-        alert("Tabla LL1 generada con éxito. Revisa la sección de resultados para verla.Y despues seleccione una forma de análisis.");
+        alert("Tabla LL1 generada con éxito. Ahora puede realizar el análisis sintáctico.");
+        crearTablaLL1Btn.classList.remove('highlight');
+        analizSintactRadio.disabled = false;
         document.querySelector('.table-results').scrollIntoView({ behavior: 'smooth' });
     });
 });
@@ -233,13 +273,13 @@ async function actualizarGrammarDesdeTexto() {
 function actualizarTablasDeSimbolos(grammar) {
     grammar.updateNodos();
 
-    appState.currentGrammar = grammar;
-
     const noterm = document.getElementById('noterm');
     const term = document.getElementById('term');
 
     noterm.innerHTML = '';
     term.innerHTML = '';
+
+    appState.currentGrammar = grammar;
 
     const noTerminales = new Set(grammar.SimbNoTerm);
     const terminales = new Set();
@@ -400,7 +440,6 @@ function mostrarTablaLL1EnInterfaz(table) {
 }
 
 function analizarSintacticamente(sigma, grammar, ll1Table, automata) {
-
     const lexAnalyzer = new AnalizadorLexico(sigma, automata);
     let tokens = [];
     let lexemas = [];
@@ -416,28 +455,25 @@ function analizarSintacticamente(sigma, grammar, ll1Table, automata) {
     tokens.push('FIN');
     lexemas.push('$'); // '$' para indicar fin de entrada
 
-    // Pila: poner símbolo inicial
     const startSymbol = grammar.Reglas[0].NombSimb;
     let stack = ['FIN', startSymbol];
 
     let steps = [];
-    let pos = 0; // índice en tokens
+    let pos = 0;
 
     function stackString() {
-        // La pila se muestra de arriba hacia abajo, top al final
         return stack.slice().reverse().join(" ");
     }
 
     function inputString() {
-        // Mostrar lexemas desde pos en adelante
         return lexemas.slice(pos).join(" ");
     }
 
     steps.push({stack: stackString(), input: inputString(), operation: "Iniciar"});
 
     while (true) {
-        let X = stack[stack.length - 1]; // tope
-        let a = tokens[pos]; // token actual
+        let X = stack[stack.length - 1];
+        let a = tokens[pos];
         let aLex = lexemas[pos];
 
         if (X === 'FIN' && a === 'FIN') {
@@ -446,7 +482,6 @@ function analizarSintacticamente(sigma, grammar, ll1Table, automata) {
         }
 
         if (X === 'ε') {
-            // desapilar epsilon sin consumir
             stack.pop();
             steps.push({stack: stackString(), input: inputString(), operation:"Desapilar ε"});
             continue;
@@ -454,7 +489,6 @@ function analizarSintacticamente(sigma, grammar, ll1Table, automata) {
 
         if (esTerminal(X, grammar)) {
             if (X === aLex || X === '$' || grammar.TerminalesTokens[X] === a) {
-                // Coincide terminal
                 stack.pop();
                 pos++;
                 steps.push({stack: stackString(), input: inputString(), operation:"pop"});
@@ -463,7 +497,6 @@ function analizarSintacticamente(sigma, grammar, ll1Table, automata) {
                 break;
             }
         } else {
-            // X es no terminal
             let tokenEntrada = a;
             let produccionIndex = ll1Table[X][tokenEntrada];
             if (produccionIndex === undefined) {
@@ -471,12 +504,11 @@ function analizarSintacticamente(sigma, grammar, ll1Table, automata) {
                 break;
             }
 
-            // Desapilar X
             stack.pop();
             const regla = grammar.Reglas[produccionIndex];
             const ladoDer = regla.Lista.map(n => n.NombSimb).join(" ");
 
-            // Apilar en orden normal (izq->der) para que el último simbolo de la producción quede arriba
+            // Apilar en orden inverso para que el primer símbolo de la producción quede más abajo
             for (let i = regla.Lista.length - 1; i >= 0; i--) {
                 let simb = regla.Lista[i].NombSimb;
                 stack.push(simb);

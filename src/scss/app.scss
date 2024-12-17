@@ -489,3 +489,16 @@ body {
         }
     }
 }
+
+
+.highlight {
+  background-color: $russian-violet-900; /* Amarillo pastel */
+  border: 0.2rem solid $russian-violet-900;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+0% {box-shadow: 0 0 0.5rem $russian-violet-900;}
+50% {box-shadow: 0 0 2rem $russian-violet-900;}
+100% {box-shadow: 0 0 0.5rem $russian-violet-900;}
+}

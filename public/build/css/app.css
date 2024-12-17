@@ -555,4 +555,22 @@ body {
 .result__table td {
   width: auto;
   padding: 1rem 1rem;
+}
+
+.highlight {
+  background-color: #c4aff3; /* Amarillo pastel */
+  border: 0.2rem solid #c4aff3;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0.5rem #c4aff3;
+  }
+  50% {
+    box-shadow: 0 0 2rem #c4aff3;
+  }
+  100% {
+    box-shadow: 0 0 0.5rem #c4aff3;
+  }
 }/*# sourceMappingURL=app.css.map */

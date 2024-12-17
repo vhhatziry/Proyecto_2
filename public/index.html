@@ -80,6 +80,25 @@
     </section>
   </section>
 
+  
+  <section class="result" id="lex">
+    <h2 class="result__title">Análisis Léxico</h2>
+    <table class="result__table" id="lexResults"></table>
+    <div class="test">
+      <label class="test__label" for="sigma">Sigma:</label>
+      <div class="test__sigma-container">
+        <textarea name="sigma" id="sigma" class="test__sigma"></textarea>
+      </div>
+      <button class="test__button" id="testLex">Analizar Léxicamente</button>    
+    </div>
+  </section>
+ 
+
+  <section class="result" id="sintact">
+    <h2 class="result__title">Análisis Sintáctico</h2>
+    <table class="result__table"></table>
+  </section>
+
   <section class="table-results">
     <h2 class="table-results__title">Tabla de análisis LL1</h2>
     <table class="table-results__table">
@@ -92,24 +111,6 @@
     <div class="table-results__expand">
     </div>
 </section>
-
-  <div class="test">
-    <label class="test__label" for="sigma">Sigma:</label>
-    <div class="test__sigma-container">
-      <textarea name="sigma" id="sigma" class="test__sigma"></textarea>
-    </div>
-    <button class="test__button" id="testLex">Analizar Léxicamente</button>    
-  </div>
-
-  <section class="result" id="lex">
-    <h2 class="result__title">Análisis Léxico</h2>
-    <table class="result__table" id="lexResults"></table>
-  </section>
-
-  <section class="result" id="sintact">
-    <h2 class="result__title">Análisis Sintáctico</h2>
-    <table class="result__table"></table>
-  </section>
 
 <script src="build/js/app.js" type="module"></script>
 

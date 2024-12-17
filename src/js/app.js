@@ -17,6 +17,10 @@ const appState = {
     tokensAssigned: false
 };
 
+window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+};
+
 document.addEventListener('DOMContentLoaded', async () => {
     const matrizInput = document.getElementById('matrizInput');
     const cargarAFDButton = document.getElementById('cargarAFD');
@@ -118,6 +122,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 goToTokensBtn.style.display = "block";
                 testLexButton.classList.remove('highlight');
                 goToTokensBtn.classList.add('highlight');
+
+                const rect = lexSection.getBoundingClientRect();
+                const offsetY = window.scrollY + rect.top + 64; 
+                window.scrollTo({ top: offsetY, behavior: 'smooth' });
+
             } else if (token === SimbolosEspeciales.ERROR) {
                 agregarFilaLexResults(lexResultsTable, appState.userLexAnalyzer.getLexema(), 'ERROR');
                 alert("Error léxico encontrado, revise su cadena sigma.");
@@ -158,7 +167,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     goToTokensBtn.addEventListener('click', () => {
-        document.querySelector('.info').scrollIntoView({ behavior: 'smooth' });
+        document.querySelector('.grammar').scrollIntoView({ behavior: 'smooth' });
         goToTokensBtn.classList.remove('highlight');
         asignarTokensBtn.disabled = false;
         asignarTokensBtn.classList.add('highlight');

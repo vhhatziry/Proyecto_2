@@ -30,29 +30,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     const lexSection = document.getElementById('lex');
     const sintactSection = document.getElementById('sintact');
 
-    // Nuevo botón para ir a asignación de tokens (lo agregamos dinámicamente bajo el result del análisis léxico)
     let goToTokensBtn = document.createElement('button');
     goToTokensBtn.textContent = "Ir a asignación de tokens";
     goToTokensBtn.className = "info__button";
-    goToTokensBtn.style.display = "none"; // inicialmente oculto
+    goToTokensBtn.style.display = "none";
     document.getElementById('lex').appendChild(goToTokensBtn);
 
-    // Deshabilitar análisis sintáctico hasta más adelante
     analizSintactRadio.disabled = true; 
-
     testLexButton.disabled = true;
     asignarTokensBtn.disabled = true; 
     crearTablaLL1Btn.disabled = true;
 
-    // Por defecto análisis léxico
     lexSection.style.display = 'block';
     sintactSection.style.display = 'none';
     testLexButton.textContent = "Analizar Léxicamente";
     appState.currentMode = 'lex';
 
-    // No se permite cambiar a análisis sintáctico todavía
     analizLexRadio.checked = true;
-
     analizLexRadio.addEventListener('change', () => {
         if (analizLexRadio.checked) {
             lexSection.style.display = 'block';
@@ -86,11 +80,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.log('Autómata cargado exitosamente.');
             testLexButton.disabled = false; 
             alert("AFD Cargado. Ahora puede realizar análisis léxico.");
-    
-            // Resaltar el botón de análisis léxico si lo deseas
             testLexButton.classList.add('highlight');
-    
-            // Desplazarse automáticamente a la sección de análisis léxico:
             const lexSection = document.getElementById('lex');
             if (lexSection) {
               lexSection.scrollIntoView({ behavior: 'smooth' });
@@ -125,7 +115,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 console.log("Fin de entrada (análisis usuario).");
                 agregarFilaLexResults(lexResultsTable, 'FIN', '0');
                 alert("Análisis léxico completado. Ahora asigne tokens a los terminales.");
-                // Mostrar botón "Ir a asignación de tokens"
                 goToTokensBtn.style.display = "block";
                 testLexButton.classList.remove('highlight');
                 goToTokensBtn.classList.add('highlight');
@@ -147,7 +136,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             const sintactTable = document.querySelector('#sintact .result__table');
             sintactTable.innerHTML = '';
 
-            const steps = analizarSintacticamente(sigma, appState.currentGrammar, appState.ll1Table, appState.userAutomata);
+            const steps = analizarSintacticamente(
+                sigma, 
+                appState.currentGrammar, 
+                appState.ll1Table, 
+                appState.userAutomata
+            );
 
             const header = sintactTable.insertRow();
             let h1 = header.insertCell(); h1.textContent = "Pila";
@@ -164,7 +158,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     goToTokensBtn.addEventListener('click', () => {
-        // Ir a la tabla de terminales para asignar tokens
         document.querySelector('.info').scrollIntoView({ behavior: 'smooth' });
         goToTokensBtn.classList.remove('highlight');
         asignarTokensBtn.disabled = false;
@@ -281,7 +274,7 @@ function actualizarTablasDeSimbolos(grammar) {
 
     appState.currentGrammar = grammar;
 
-    const noTerminales = new Set(grammar.SimbNoTerm);
+    const noTerminales = grammar.SimbNoTerm;
     const terminales = new Set();
 
     for (let i = 0; i < grammar.NumReglas; i++) {
@@ -346,94 +339,59 @@ function mostrarTablaLL1EnInterfaz(table) {
         return r.NombSimb + " -> " + ladoDerecho;
     });
 
-    const noTerminales = Object.keys(table);
-    const tokensSet = new Set();
-
-    for (let A of noTerminales) {
-        for (let tToken of Object.keys(table[A])) {
-            tokensSet.add(tToken);
-        }
-    }
-
-    const tokens = Array.from(tokensSet);
-
-    const headerRow = tableContainer.insertRow();
-    headerRow.classList.add('ll1-header-row');
-    let th = headerRow.insertCell();
-    th.textContent = 'NT/TOK';
-    th.classList.add('ll1-header-cell');
-
-    for (let tok of tokens) {
-        const cell = headerRow.insertCell();
-        cell.textContent = tok;
-        cell.classList.add('ll1-header-cell');
-    }
-
-    for (let A of noTerminales) {
-        const row = tableContainer.insertRow();
-        row.classList.add('ll1-row');
-        const cellNT = row.insertCell();
-        cellNT.textContent = A;
-        cellNT.classList.add('ll1-nonterminal-cell');
-
-        for (let tok of tokens) {
-            const cell = row.insertCell();
-            cell.classList.add('ll1-cell');
-            if (table[A][tok] !== undefined) {
-                const reglaIndex = table[A][tok]; 
-                cell.textContent = reglasTexto[reglaIndex];
-                cell.classList.add('ll1-rule-cell');
-            } else {
-                cell.textContent = ''; 
-                cell.classList.add('ll1-empty-cell');
-            }
-        }
-    }
-
-    const terminales = new Set();
+    // Obtener no terminales y terminales
+    const noTerminales = Array.from(grammar.SimbNoTerm);
+    const terminalesSet = new Set();
     for (let i = 0; i < grammar.NumReglas; i++) {
         for (let nodo of grammar.Reglas[i].Lista) {
             if (nodo.EsTerminal && nodo.NombSimb !== 'ε') {
-                terminales.add(nodo.NombSimb);
+                terminalesSet.add(nodo.NombSimb);
             }
         }
     }
 
-    const terminalList = Array.from(terminales);
+    const terminales = Array.from(terminalesSet);
+    // Agregar FIN a la lista de columnas
+    const columnas = [...terminales, 'FIN'];
 
-    const expandDiv = document.querySelector('.table-results__expand');
-    expandDiv.innerHTML = '';
+    // Filas: no terminales + terminales
+    const filas = [...noTerminales, ...terminales];
 
-    const secondTable = document.createElement('table');
-    secondTable.classList.add('table-results__table', 'll1-second-table');
-    expandDiv.appendChild(secondTable);
-
-    const secHeader = secondTable.insertRow();
-    let secTh = secHeader.insertCell();
-    secTh.textContent = "Term/Term";
-    secTh.classList.add('ll1-header-cell');
-
-    for (let t1 of terminalList) {
-        const cell = secHeader.insertCell();
-        cell.textContent = t1;
-        cell.classList.add('ll1-header-cell');
+    // Encabezado
+    const headerRow = tableContainer.insertRow();
+    let th = headerRow.insertCell();
+    th.textContent = 'Simb/Term';
+    for (let col of columnas) {
+        const cell = headerRow.insertCell();
+        cell.textContent = col;
     }
 
-    for (let tTop of terminalList) {
-        const row = secondTable.insertRow();
-        const cellTerm = row.insertCell();
-        cellTerm.textContent = tTop;
-        cellTerm.classList.add('ll1-terminal-cell');
+    // Llenar la tabla
+    for (let rowSymbol of filas) {
+        const row = tableContainer.insertRow();
+        const cellRowSym = row.insertCell();
+        cellRowSym.textContent = rowSymbol;
 
-        for (let tInput of terminalList) {
-            const cell = row.insertCell();
-            cell.classList.add('ll1-action-cell');
-            if (tTop === tInput) {
-                cell.textContent = 'pop';
-                cell.classList.add('ll1-pop-cell');
-            } else {
-                cell.textContent = 'error';
-                cell.classList.add('ll1-error-cell');
+        if (grammar.SimbNoTerm.has(rowSymbol)) {
+            // Es un no terminal (mostrar reglas LL1)
+            for (let colTerm of columnas) {
+                const cell = row.insertCell();
+                const productionIndex = table[rowSymbol][colTerm];
+                if (productionIndex !== undefined) {
+                    cell.textContent = reglasTexto[productionIndex];
+                } else {
+                    cell.textContent = 'error';
+                }
+            }
+        } else {
+            // Es un terminal (pop/error)
+            for (let colTerm of columnas) {
+                const cell = row.insertCell();
+                if (colTerm === rowSymbol) {
+                    cell.textContent = 'pop';
+                } else {
+                    cell.textContent = 'error';
+                }
             }
         }
     }
@@ -453,7 +411,7 @@ function analizarSintacticamente(sigma, grammar, ll1Table, automata) {
     }
 
     tokens.push('FIN');
-    lexemas.push('$'); // '$' para indicar fin de entrada
+    lexemas.push('$'); 
 
     const startSymbol = grammar.Reglas[0].NombSimb;
     let stack = ['FIN', startSymbol];
@@ -471,6 +429,17 @@ function analizarSintacticamente(sigma, grammar, ll1Table, automata) {
 
     steps.push({stack: stackString(), input: inputString(), operation: "Iniciar"});
 
+    // Función auxiliar para obtener el símbolo terminal asociado a un token
+    function symbolForToken(tokenVal) {
+        // Buscamos el terminal que tenga este token
+        for (let [sym, tkn] of Object.entries(grammar.TerminalesTokens)) {
+            if (tkn === tokenVal) return sym;
+        }
+        // Si tokenVal es FIN:
+        if (tokenVal === 'FIN') return 'FIN';
+        return null;
+    }
+
     while (true) {
         let X = stack[stack.length - 1];
         let a = tokens[pos];
@@ -487,8 +456,16 @@ function analizarSintacticamente(sigma, grammar, ll1Table, automata) {
             continue;
         }
 
-        if (esTerminal(X, grammar)) {
-            if (X === aLex || X === '$' || grammar.TerminalesTokens[X] === a) {
+        // Determinar si X es terminal
+        let XesTerminal = esTerminal(X, grammar);
+
+        if (XesTerminal) {
+            // X es terminal. Comprobamos con el token 'a'.
+            let Xtoken = grammar.TerminalesTokens[X];
+            if (X === 'FIN') Xtoken = 'FIN'; 
+            if (X === '$') Xtoken = 'FIN'; 
+
+            if ((Xtoken === a) || (X === '$' && a === 'FIN')) {
                 stack.pop();
                 pos++;
                 steps.push({stack: stackString(), input: inputString(), operation:"pop"});
@@ -497,8 +474,21 @@ function analizarSintacticamente(sigma, grammar, ll1Table, automata) {
                 break;
             }
         } else {
-            let tokenEntrada = a;
-            let produccionIndex = ll1Table[X][tokenEntrada];
+            // X es no terminal
+            // Encontrar el símbolo terminal de la entrada actual a partir del token 'a'
+            let aSymbol = symbolForToken(a);
+            if (!aSymbol) {
+                // Si no encontramos el símbolo, es error
+                steps.push({stack: stackString(), input: inputString(), operation:"error"});
+                break;
+            }
+
+            let produccionIndex = ll1Table[X][aSymbol];
+            if (produccionIndex === undefined) {
+                // Intentar con FIN
+                if (a === 'FIN') produccionIndex = ll1Table[X]['FIN'];
+            }
+
             if (produccionIndex === undefined) {
                 steps.push({stack: stackString(), input: inputString(), operation:"error"});
                 break;
@@ -508,7 +498,6 @@ function analizarSintacticamente(sigma, grammar, ll1Table, automata) {
             const regla = grammar.Reglas[produccionIndex];
             const ladoDer = regla.Lista.map(n => n.NombSimb).join(" ");
 
-            // Apilar en orden inverso para que el primer símbolo de la producción quede más abajo
             for (let i = regla.Lista.length - 1; i >= 0; i--) {
                 let simb = regla.Lista[i].NombSimb;
                 stack.push(simb);

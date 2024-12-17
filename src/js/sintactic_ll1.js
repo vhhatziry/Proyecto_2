@@ -1,5 +1,7 @@
 // sintactic_ll1.js
 
+// sintactic_ll1.js
+
 function generarTablaLL1(grammar) {
     grammar.removeLeftRecursion();
     const FIRST = calcularFIRST(grammar);
@@ -12,31 +14,33 @@ function generarTablaLL1(grammar) {
     }
 
     for (let i = 0; i < grammar.NumReglas; i++) {
-        const regla = grammar.Reglas[i]; // ElemArreglo con NombSimb y Lista
-        const A = regla.NombSimb; // No terminal del lado izquierdo
-        const alpha = regla.Lista; // Array de Nodos del lado derecho
+        const regla = grammar.Reglas[i]; 
+        const A = regla.NombSimb; 
+        const alpha = regla.Lista; 
         const firstAlpha = FIRSTdeSecuencia(alpha, FIRST); 
 
         const epsilonInFirst = firstAlpha.has('ε');
 
+        // Para cada terminal en FIRST(alpha) distinto de ε:
         for (let terminal of firstAlpha) {
             if (terminal !== 'ε') {
-                const tToken = obtenerTokenDeTerminal(grammar, terminal);
-                if (table[A][tToken] && table[A][tToken] !== i) {
-                    console.warn(`Conflicto en LL(1): ${A}, token ${tToken}`);
+                // Usar directamente el nombre del símbolo terminal (sin tokens)
+                const colKey = terminal;
+                if (table[A][colKey] && table[A][colKey] !== i) {
+                    console.warn(`Conflicto en LL(1): ${A}, terminal ${colKey}`);
                 }
-                table[A][tToken] = i;
+                table[A][colKey] = i;
             }
         }
 
+        // Si epsilon está en FIRST(alpha), agregar las producciones para cada símbolo en FOLLOW(A)
         if (epsilonInFirst) {
-            // FIRST(alpha) contiene ε, entonces por cada b en FOLLOW(A)
             for (let b of FOLLOW[A]) {
-                const bToken = obtenerTokenDeTerminal(grammar, b, true);
-                if (table[A][bToken] && table[A][bToken] !== i) {
-                    console.warn(`Conflicto en LL(1): ${A}, token ${bToken}`);
+                const colKey = (b === 'FIN') ? 'FIN' : b; 
+                if (table[A][colKey] && table[A][colKey] !== i) {
+                    console.warn(`Conflicto en LL(1): ${A}, terminal ${colKey}`);
                 }
-                table[A][bToken] = i;
+                table[A][colKey] = i;
             }
         }
     }
@@ -158,25 +162,6 @@ function FIRSTdeSecuencia(alpha, FIRST) {
     }
 
     return result;
-}
-
-// Devuelve el token correspondiente a un terminal, o el 'FIN' si es FOLLOW y b es 'FIN'
-function obtenerTokenDeTerminal(grammar, symbol, esFollow = false) {
-    if (symbol === 'ε') {
-        // epsilon no se utiliza como entrada en la tabla LL(1), no se necesita token
-        return 'ε'; 
-    }
-    if (symbol === 'FIN' && esFollow) {
-        // Indicar el token especial de fin de entrada
-        return 'FIN';
-    }
-    // Si existe en TerminalesTokens
-    if (grammar.TerminalesTokens[symbol] !== undefined) {
-        return grammar.TerminalesTokens[symbol];
-    }
-    // Si no está asignado un token, podemos usar el symbol directamente o lanzar advertencia
-    console.warn(`No se encontró token asignado al terminal "${symbol}". Usando el lexema como llave.`);
-    return symbol;
 }
 
 export {generarTablaLL1};

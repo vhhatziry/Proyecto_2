@@ -34,11 +34,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const lexSection = document.getElementById('lex');
     const sintactSection = document.getElementById('sintact');
 
-    let goToTokensBtn = document.createElement('button');
+    let goToTokensBtn = document.querySelector('#gototokens');
     goToTokensBtn.textContent = "Ir a asignación de tokens";
-    goToTokensBtn.className = "info__button";
     goToTokensBtn.style.display = "none";
-    document.getElementById('lex').appendChild(goToTokensBtn);
 
     analizSintactRadio.disabled = true; 
     testLexButton.disabled = true;

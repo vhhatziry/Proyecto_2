@@ -20,4 +20,13 @@ SIMBOLO	    40
 OR          30
 
 Para analizarlo sintácticamente coloque la siguiente sigma:
-<regla>-><regla2>;
+<G> -> <Reglas>;
+<Reglas> -> <Regla> <SEMICOLON> <ReglasP>;
+<ReglasP> -> <Regla> <SEMICOLON> <ReglasP> | <epsilon>;
+<Regla> -> <LadoIzq> <FLECHA> <LadosDerechos>;
+<LadoIzq> -> <SIMBOLO>;
+<LadosDerechos> -> <LadoDerecho> <LadosDerechosP>;
+<LadosDerechosP> -> <OR> <LadoDerecho> <LadosDerechosP> | <epsilon>;
+<LadoDerecho> -> <Simbolos>;
+<Simbolos> -> <SIMBOLO> <SimbolosP>;
+<SimbolosP> -> <SIMBOLO> <SimbolosP> | <epsilon>;

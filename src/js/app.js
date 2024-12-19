@@ -434,15 +434,10 @@ function analizarSintacticamente(sigma, grammar, ll1Table, automata) {
         return lexemas.slice(pos).join(" ");
     }
 
-    steps.push({stack: stackString(), input: inputString(), operation: "Iniciar"});
-
-    // Función auxiliar para obtener el símbolo terminal asociado a un token
     function symbolForToken(tokenVal) {
-        // Buscamos el terminal que tenga este token
         for (let [sym, tkn] of Object.entries(grammar.TerminalesTokens)) {
             if (tkn === tokenVal) return sym;
         }
-        // Si tokenVal es FIN:
         if (tokenVal === 'FIN') return 'FIN';
         return null;
     }
@@ -452,65 +447,71 @@ function analizarSintacticamente(sigma, grammar, ll1Table, automata) {
         let a = tokens[pos];
         let aLex = lexemas[pos];
 
+        let currentStack = stackString();
+        let currentInput = inputString();
+
         if (X === 'FIN' && a === 'FIN') {
-            steps.push({stack: stackString(), input: inputString(), operation: "aceptar"});
+            // Antes de terminar, registramos la operación aceptar
+            steps.push({stack: currentStack, input: currentInput, operation:"aceptar"});
             break;
         }
 
         if (X === 'ε') {
+            // Antes de desapilar epsilon, mostramos la operación
+            steps.push({stack: currentStack, input: currentInput, operation:"Desapilar ε"});
             stack.pop();
-            steps.push({stack: stackString(), input: inputString(), operation:"Desapilar ε"});
             continue;
         }
 
-        // Determinar si X es terminal
         let XesTerminal = esTerminal(X, grammar);
 
         if (XesTerminal) {
-            // X es terminal. Comprobamos con el token 'a'.
+            // X es terminal, comprobar si coincide con a
             let Xtoken = grammar.TerminalesTokens[X];
             if (X === 'FIN') Xtoken = 'FIN'; 
             if (X === '$') Xtoken = 'FIN'; 
 
             if ((Xtoken === a) || (X === '$' && a === 'FIN')) {
+                // Antes de hacer pop, registramos la operación "pop"
+                steps.push({stack: currentStack, input: currentInput, operation:"pop"});
                 stack.pop();
                 pos++;
-                steps.push({stack: stackString(), input: inputString(), operation:"pop"});
             } else {
-                steps.push({stack: stackString(), input: inputString(), operation:"error"});
+                steps.push({stack: currentStack, input: currentInput, operation:"error"});
                 break;
             }
         } else {
             // X es no terminal
-            // Encontrar el símbolo terminal de la entrada actual a partir del token 'a'
             let aSymbol = symbolForToken(a);
             if (!aSymbol) {
-                // Si no encontramos el símbolo, es error
-                steps.push({stack: stackString(), input: inputString(), operation:"error"});
+                steps.push({stack: currentStack, input: currentInput, operation:"error"});
                 break;
             }
 
             let produccionIndex = ll1Table[X][aSymbol];
             if (produccionIndex === undefined) {
-                // Intentar con FIN
+                // intentar con FIN
                 if (a === 'FIN') produccionIndex = ll1Table[X]['FIN'];
             }
 
             if (produccionIndex === undefined) {
-                steps.push({stack: stackString(), input: inputString(), operation:"error"});
+                steps.push({stack: currentStack, input: currentInput, operation:"error"});
                 break;
             }
 
-            stack.pop();
+            // Vamos a usar la regla produccionIndex
             const regla = grammar.Reglas[produccionIndex];
             const ladoDer = regla.Lista.map(n => n.NombSimb).join(" ");
 
+            // Registrar la operación antes de aplicarla
+            steps.push({stack: currentStack, input: currentInput, operation: X + " -> " + ladoDer});
+
+            // Aplicar la regla
+            stack.pop();
             for (let i = regla.Lista.length - 1; i >= 0; i--) {
                 let simb = regla.Lista[i].NombSimb;
                 stack.push(simb);
             }
-
-            steps.push({stack: stackString(), input: inputString(), operation: X + " -> " + ladoDer});
         }
     }
 

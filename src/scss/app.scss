@@ -503,3 +503,37 @@ body {
 50% {box-shadow: 0 0 2rem $russian-violet-900;}
 100% {box-shadow: 0 0 0.5rem $russian-violet-900;}
 }
+
+
+@keyframes flotar {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(-2deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes flotar--2 {
+  0% {
+    transform: translateY(5px) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0);
+  }
+  100% {
+    transform: translateY(5px) rotate(-2deg);
+  }
+}
+
+#head1 {
+  animation: flotar 3s ease-in-out infinite;
+}
+
+#head2 {
+  animation: flotar--2 3s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
